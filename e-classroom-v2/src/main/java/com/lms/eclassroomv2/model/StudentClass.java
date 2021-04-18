@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +20,9 @@ public class StudentClass {
 	private String name;
 	
 	private String description;
+	
+	@ManyToOne
+	SchoolClass schoolClass;
 	
 	public StudentClass() {
 		
@@ -46,6 +50,14 @@ public class StudentClass {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public SchoolClass getSchoolClass() {
+		return schoolClass;
+	}
+
+	public void setSchoolClass(SchoolClass schoolClass) {
+		this.schoolClass = schoolClass;
 	}
 
 }
