@@ -18,12 +18,25 @@ public class CourseService {
 	@Autowired
 	TeacherService teacherService;
 
+	@Autowired
+	SchoolClassService schoolClassService;
+
 	public List<Course> getAllCourses() {
 		return courseRepository.findAll();
 	}
 
 	public Course getCourseById(Long courseId) {
 		return courseRepository.findById(courseId).orElse(null);
+	}
+	
+	//svi predmeti koje profesor predaje
+	public List<Course> getAllCoursesForTeacher(Long teacherId) {
+		return courseRepository.findByTeacherId(teacherId);
+	}
+	
+	//svi predmeti za razred
+	public List<Course> getAllCoursesForSchoolClass(Long scClassId) {
+		return courseRepository.findBySchoolClassId(scClassId);
 	}
 
 	public Course addCourse(CourseDto courseDto) {
@@ -32,6 +45,7 @@ public class CourseService {
 		course.setDescription(courseDto.getDescription());
 		course.setDeleted(false);
 		course.setTeacher(teacherService.getTeacherById(courseDto.getTeacherId()));
+		course.setSchoolClass(schoolClassService.getSchoolClassById(courseDto.getSchoolClassId()));
 
 		return courseRepository.save(course);
 	}
@@ -41,14 +55,18 @@ public class CourseService {
 		course.setName(courseDto.getName());
 		course.setDescription(courseDto.getDescription());
 		course.setTeacher(teacherService.getTeacherById(courseDto.getTeacherId()));
-
+		course.setSchoolClass(schoolClassService.getSchoolClassById(courseDto.getSchoolClassId()));
+		
 		return courseRepository.save(course);
 	}
-	
-	//logicko brisanje! - mozes da napravis kao arhiviranje kursa - pa samo da mu mjenjas taj status 
+
+	// logicko brisanje! - mozes da napravis kao arhiviranje kursa - pa samo da mu
+	// mjenjas taj status
 	public void deleteCourse(Long courseId) {
 		Course course = getCourseById(courseId);
 		course.setDeleted(true);
 		courseRepository.save(course);
 	}
+	
+	
 }

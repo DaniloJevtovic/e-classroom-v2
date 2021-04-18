@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "courses")
 public class Course {
-	
+
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,15 +19,21 @@ public class Course {
 
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "description")
 	private String description;
-	
+
+	@Column(name = "is_deleted")
+	private boolean isDeleted;
+
 	@ManyToOne
-	User teacher;
-	
+	Teacher teacher;
+
+	@ManyToOne
+	SchoolClass schoolClass;
+
 	public Course() {
-		
+
 	}
 
 	public Long getId() {
@@ -54,12 +60,28 @@ public class Course {
 		this.description = description;
 	}
 
-	public User getTeacher() {
+	public Teacher getTeacher() {
 		return teacher;
 	}
 
-	public void setTeacher(User teacher) {
+	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
+	}
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public SchoolClass getSchoolClass() {
+		return schoolClass;
+	}
+
+	public void setSchoolClass(SchoolClass schoolClass) {
+		this.schoolClass = schoolClass;
 	}
 
 }
