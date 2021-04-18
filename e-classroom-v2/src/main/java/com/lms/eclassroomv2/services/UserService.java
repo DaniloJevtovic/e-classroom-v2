@@ -10,12 +10,24 @@ import com.lms.eclassroomv2.repository.UserRepository;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
+	}
+
+	public User getUserById(Long userId) {
+		return userRepository.findById(userId).orElse(null);
+	}
+
+	public User getUserByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
+
+	public User getUserByEmail(String email) {
+		return userRepository.findByEmail(email);
 	}
 
 }
