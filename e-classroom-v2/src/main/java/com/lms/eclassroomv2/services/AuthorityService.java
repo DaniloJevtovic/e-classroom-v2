@@ -1,5 +1,6 @@
 package com.lms.eclassroomv2.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +13,20 @@ import com.lms.eclassroomv2.repository.AuthorityRepository;
 public class AuthorityService {
 
 	@Autowired
-	AuthorityRepository authorityRepository;
-	
-	public List<Authority> getAllAuthorities() {
-		return authorityRepository.findAll();
+	private AuthorityRepository authorityRepository;
+
+	public List<Authority> findById(Long id) {
+		Authority authority = this.authorityRepository.getOne(id);
+		List<Authority> authorities = new ArrayList<Authority>();
+		authorities.add(authority);
+		return authorities;
 	}
-	
-	public Authority getAuthorityByName(String name) {
-		return authorityRepository.findByName(name);
+
+	public List<Authority> findByname(String name) {
+		Authority authority = this.authorityRepository.findByName(name);
+		List<Authority> authorities = new ArrayList<Authority>();
+		authorities.add(authority);
+		return authorities;
 	}
-	
+
 }
