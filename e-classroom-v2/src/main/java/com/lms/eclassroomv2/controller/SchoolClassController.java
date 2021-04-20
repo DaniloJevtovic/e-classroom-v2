@@ -28,7 +28,7 @@ public class SchoolClassController {
 	}
 	
 	@PreAuthorize("hasRole ('ADMIN')")
-	@GetMapping("/{scClassId")
+	@GetMapping("/{scClassId}")
 	public SchoolClass getSchoolClassById(@PathVariable Long scClassId) {
 		return scClassService.getSchoolClassById(scClassId);
 	}
