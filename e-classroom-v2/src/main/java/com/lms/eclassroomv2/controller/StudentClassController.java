@@ -29,7 +29,7 @@ public class StudentClassController {
 	}
 	
 	@PreAuthorize("hasRole ('ADMIN')")
-	@GetMapping("/stClassId")
+	@GetMapping("/{stClassId}")
 	public StudentClass getStudentClassById(@PathVariable Long stClassId) {
 		return stClassService.getStudentClassById(stClassId);
 	}

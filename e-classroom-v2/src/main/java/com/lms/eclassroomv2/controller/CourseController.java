@@ -30,7 +30,7 @@ public class CourseController {
 		return courseService.getAllCourses();
 	}
 
-	@PreAuthorize("hasRole ('ADMIN')")
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER')")
 	@GetMapping(value = "/{courseId}")
 	public Course getCourseById(@PathVariable Long courseId) {
 		return courseService.getCourseById(courseId);
