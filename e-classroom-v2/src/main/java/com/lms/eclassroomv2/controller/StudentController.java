@@ -30,8 +30,20 @@ public class StudentController {
 	
 	@PreAuthorize("hasRole ('ADMIN') or hasRole (TEACHER)")
 	@GetMapping(value = "/stClass/{classId}")
-	public List<Student> getAllStudentsFromClass(@PathVariable Long classId) {
-		return studentService.getStudentsByClassId(classId);
+	public List<Student> getAllStudentsFromStClass(@PathVariable Long classId) {
+		return studentService.getStudentsByStudentClass(classId);
+	}
+	
+	@PreAuthorize("hasRole ('ADMIN') or hasRole (TEACHER)")
+	@GetMapping(value = "/scClass/{scClassId}")
+	public List<Student> getStudentsFromSchoolClass(@PathVariable Long scClassId) {
+		return studentService.getStudentsFromSchoolClass(scClassId);
+	}
+	
+	@PreAuthorize("hasRole ('ADMIN') or hasRole (TEACHER)")
+	@GetMapping(value = "/course/{courseId}")
+	public List<Student> getStudentsByCourse(@PathVariable Long courseId) {
+		return studentService.getStudentsFromCourse(courseId);
 	}
 	
 	@PreAuthorize("hasRole ('ADMIN')")

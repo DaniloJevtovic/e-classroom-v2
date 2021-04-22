@@ -8,6 +8,10 @@ import com.lms.eclassroomv2.model.Student;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
 	
+	//svi ucenici iz odjeljenja
 	List<Student> findByStudentClassId(Long studentClassId);
+	
+	//svi ucenici iz razreda
+	List<Student> findByStudentClassSchoolClassId(Long schoolClassId);
 
 }

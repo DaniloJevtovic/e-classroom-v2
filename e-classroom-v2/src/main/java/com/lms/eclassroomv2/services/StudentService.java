@@ -19,7 +19,10 @@ public class StudentService {
 
 	@Autowired
 	StudentClassService stClassService;
-	
+
+	@Autowired
+	CourseService courseService;
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -30,8 +33,23 @@ public class StudentService {
 		return studentRepository.findAll();
 	}
 
-	public List<Student> getStudentsByClassId(Long classId) {
+	// svi ucenici iz odjeljenja
+	public List<Student> getStudentsByStudentClass(Long classId) {
 		return studentRepository.findByStudentClassId(classId);
+	}
+
+	// svi ucenici iz razreda
+	public List<Student> getStudentsFromSchoolClass(Long schoolClassId) {
+		return studentRepository.findByStudentClassSchoolClassId(schoolClassId);
+	}
+
+	// svi ucenici na predmetu
+	public List<Student> getStudentsFromCourse(Long courseId) {
+		// pronadjem id-razreda kojem predmet pripada
+		Long courseClassId = courseService.getCourseById(courseId).getSchoolClass().getId();
+		// za id-tog razreda ucitam sve ucenike jer svi oni slusaju taj predmet
+		return getStudentsFromSchoolClass(courseClassId);
+
 	}
 
 	public Student addNewStudent(StudentDto studentDto) {
