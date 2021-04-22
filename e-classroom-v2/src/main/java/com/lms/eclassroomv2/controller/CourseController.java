@@ -30,7 +30,7 @@ public class CourseController {
 		return courseService.getAllCourses();
 	}
 
-	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER')")
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
 	@GetMapping(value = "/{courseId}")
 	public Course getCourseById(@PathVariable Long courseId) {
 		return courseService.getCourseById(courseId);
@@ -46,6 +46,12 @@ public class CourseController {
 	@GetMapping("/schoolClass/{scId}")
 	public List<Course> getAllCoursesForSchoolClass(@PathVariable Long scId) {
 		return courseService.getAllCoursesForSchoolClass(scId);
+	}
+
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
+	@GetMapping("/stClass/{stId}")
+	public List<Course> getAllCoursesForStudentClass(@PathVariable Long stId) {
+		return courseService.getCoursesForStudentClass(stId);
 	}
 
 	@PreAuthorize("hasRole ('ADMIN')")
