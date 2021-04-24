@@ -26,6 +26,10 @@ public class MaterialService {
 		return materialRepository.findById(materialId).orElse(null);
 	}
 
+	public List<Material> getAllMaterialsForCourse(Long courseId) {
+		return materialRepository.findByCourseId(courseId);
+	}
+
 	public Material newMaterial(MaterialDto materialDto) {
 		Material material = new Material();
 		material.setName(materialDto.getName());

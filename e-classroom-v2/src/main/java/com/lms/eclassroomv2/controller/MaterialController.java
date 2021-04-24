@@ -34,6 +34,12 @@ public class MaterialController {
 	public Material getMaterialById(@PathVariable Long materialId) {
 		return materialService.getMaterialById(materialId);
 	}
+	
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
+	@GetMapping(value = "/course/{courseId}")
+	public List<Material> getAllMaterialsForCourse(@PathVariable Long courseId) {
+		return materialService.getAllMaterialsForCourse(courseId);
+	}
 
 	@PreAuthorize("hasRole ('TEACHER')")
 	@PostMapping
