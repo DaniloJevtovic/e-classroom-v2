@@ -14,27 +14,44 @@ public class AnswerService {
 
 	@Autowired
 	AnswerRepository answerRepository;
-	
+
 	@Autowired
 	QuestionService questionService;
-	
+
 	public List<Answer> getAllAnswers() {
 		return answerRepository.findAll();
 	}
-	
+
 	public Answer getAnswerById(Long answerId) {
 		return answerRepository.findById(answerId).orElse(null);
 	}
-	
+
 	public List<Answer> getAnswersForQuestion(Long questionId) {
 		return answerRepository.findByQuestionId(questionId);
 	}
-	
-	public Answer addNewAnswer (AnswerDto answerDto) {
+
+	public Answer addNewAnswer(AnswerDto answerDto) {
 		Answer answer = new Answer();
 		answer.setAnswer(answerDto.getAnswer());
 		answer.setCorrect(answerDto.isCorrect());
 		answer.setQuestion(questionService.getQuestionById(answerDto.getQuestionId()));
 		return answerRepository.save(answer);
+	}
+
+	public Answer updateAnswer(Long answerId, AnswerDto answerDto) {
+		Answer answer = getAnswerById(answerId);
+		answer.setAnswer(answerDto.getAnswer());
+		answer.setCorrect(answerDto.isCorrect());
+
+		return answerRepository.save(answer);
+	}
+	
+	public void deleteAnswer(Long answerId) {
+		answerRepository.deleteById(answerId);
+	}
+	
+	public void deleteAllAnswersForQuestion (Long questionId) {
+		List<Answer> questionAnswers = getAnswersForQuestion(questionId);
+		answerRepository.deleteAll(questionAnswers);
 	}
 }
