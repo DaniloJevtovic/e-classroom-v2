@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lms.eclassroomv2.model.Quiz;
+import com.lms.eclassroomv2.model.QuizStatus;
 import com.lms.eclassroomv2.model.dto.QuizDto;
 import com.lms.eclassroomv2.repository.QuizRepository;
 
@@ -14,7 +15,7 @@ public class QuizService {
 
 	@Autowired
 	QuizRepository quizRepository;
-	
+
 	@Autowired
 	CourseService courseService;
 
@@ -40,4 +41,19 @@ public class QuizService {
 		return quizRepository.save(quiz);
 	}
 
+	public Quiz updateQuiz(Long quizId, QuizDto quizDto) {
+		Quiz quiz = getQuizById(quizId);
+		quiz.setName(quizDto.getName());
+		quiz.setInstructions(quizDto.getInstructions());
+		quiz.setDuration(quizDto.getDuration());
+
+		return quizRepository.save(quiz);
+	}
+
+	// logicko brisanje!
+	public void deleteQuiz(Long quizId) {
+		Quiz quiz = getQuizById(quizId);
+		quiz.setStatus(QuizStatus.DELETED);
+		quizRepository.save(quiz);
+	}
 }
