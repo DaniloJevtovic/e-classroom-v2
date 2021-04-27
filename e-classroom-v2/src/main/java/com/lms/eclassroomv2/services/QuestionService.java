@@ -17,6 +17,9 @@ public class QuestionService {
 
 	@Autowired
 	QuizService quizService;
+	
+	@Autowired 
+	AnswerService answerService;
 
 	public List<Question> getAllQuestions() {
 		return questionRepository.findAll();
@@ -37,5 +40,18 @@ public class QuestionService {
 		question.setQuiz(quizService.getQuizById(questionDto.getQuizId()));
 
 		return questionRepository.save(question);
+	}
+
+	public Question updateQuestion(Long questionId, QuestionDto questionDto) {
+		Question question = getQuestionById(questionId);
+		question.setQuestion(questionDto.getQuestion());
+		question.setPoints(questionDto.getPoints());
+
+		return questionRepository.save(question);
+	}
+
+	public void deleteQuestion(Long questionId) {
+		answerService.deleteAllAnswersForQuestion(questionId);
+		questionRepository.deleteById(questionId);
 	}
 }
