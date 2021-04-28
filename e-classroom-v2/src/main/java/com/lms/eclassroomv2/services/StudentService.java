@@ -49,7 +49,6 @@ public class StudentService {
 		Long courseClassId = courseService.getCourseById(courseId).getSchoolClass().getId();
 		// za id-tog razreda ucitam sve ucenike jer svi oni slusaju taj predmet
 		return getStudentsFromSchoolClass(courseClassId);
-
 	}
 
 	public Student addNewStudent(StudentDto studentDto) {
