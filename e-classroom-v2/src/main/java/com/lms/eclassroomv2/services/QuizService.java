@@ -37,6 +37,7 @@ public class QuizService {
 		quiz.setInstructions(quizDto.getInstructions());
 		quiz.setDuration(quizDto.getDuration());
 		quiz.setCourse(courseService.getCourseById(quizDto.getCourseId()));
+		quiz.setStatus(QuizStatus.ACTIVE);
 
 		return quizRepository.save(quiz);
 	}
