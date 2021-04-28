@@ -3,7 +3,7 @@ INSERT INTO authority (name) VALUES ('ROLE_ADMIN');
 insert INTO authority (name) VALUES ('ROLE_TEACHER');
 insert INTO authority (name) VALUES ('ROLE_STUDENT');
 
-INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date) VALUES ('admin','direktor', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Direktor', 'Skole', 'direktor@gmail.com', true, '2021-04-15 21:58:58');
+INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date) VALUES ('admin','admin', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Direktor', 'Skole', 'direktor@gmail.com', true, '2021-04-15 21:58:58');
 --profesori
 INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date, subjects) VALUES ('teacher', 'profMat', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Profesor', 'Matematike', 'prof_mat@gmail.com', true, '2021-04-15 21:58:58', 'mat, inf');
 INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date, subjects) VALUES ('teacher', 'profSrp', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Profesor', 'Srpskog', 'prof_srp@gmail.com', true, '2021-04-15 21:58:58', 'srp');
