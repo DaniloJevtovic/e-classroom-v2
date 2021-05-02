@@ -18,6 +18,9 @@ public class StudentClassService {
 	@Autowired
 	SchoolClassService scClassService;
 
+	@Autowired
+	CourseService courseService;
+	
 	public List<StudentClass> getAllStudentClasses() {
 		return studentClassRepository.findAll();
 	}
@@ -29,6 +32,14 @@ public class StudentClassService {
 	//sva odjeljenja za razred
 	public List<StudentClass> getAllStClassesForScClass(Long schoolClassId) {
 		return studentClassRepository.findBySchoolClassId(schoolClassId);
+	}
+	
+	//sva odjeljenja za predmet - profesor
+	public List<StudentClass> getAllStClassesForCourse(Long courseId) {
+		//izvucem razred kojem predmet pripada
+		Long courseClassId = courseService.getCourseById(courseId).getSchoolClass().getId();
+		//za taj id razreda izvucem sva odjeljenja koja mu pripadaju
+		return getAllStClassesForScClass(courseClassId);
 	}
 
 	public StudentClass newStudentClass(StudentClassDto scClassDto) {

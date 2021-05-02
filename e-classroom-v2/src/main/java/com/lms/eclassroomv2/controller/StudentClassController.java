@@ -39,6 +39,12 @@ public class StudentClassController {
 		return stClassService.getAllStClassesForScClass(scClassId);
 	}
 	
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER')")
+	@GetMapping("/course/{courseId}")
+	public List<StudentClass> getAllStudentClassesForCourse(@PathVariable Long courseId) {
+		return stClassService.getAllStClassesForCourse(courseId);
+	}
+	
 	@PreAuthorize("hasRole ('ADMIN')")
 	@PostMapping
 	public StudentClass newStudentClass(@RequestBody StudentClassDto stClassDto) {
