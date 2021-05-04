@@ -25,5 +25,11 @@ public class SchoolClassService {
 	public SchoolClass newSchoolClass(SchoolClass scClass) {
 		return schoolClassRepository.save(scClass);
 	}
+	
+	public SchoolClass editSchoolClass(Long scClassId, SchoolClass scClass) {
+		SchoolClass schoolClass = getSchoolClassById(scClassId);
+		schoolClass = scClass;
+		return schoolClassRepository.save(schoolClass);
+	}
 
 }

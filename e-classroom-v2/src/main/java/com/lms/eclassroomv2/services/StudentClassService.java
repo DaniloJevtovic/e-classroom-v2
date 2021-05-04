@@ -50,5 +50,14 @@ public class StudentClassService {
 
 		return studentClassRepository.save(studentClass);
 	}
+	
+	public StudentClass editStudentClass(Long stClassId, StudentClassDto scClassDto) {
+		StudentClass studentClass = getStudentClassById(stClassId);
+		studentClass.setName(scClassDto.getName());
+		studentClass.setDescription(scClassDto.getDescription());
+		studentClass.setSchoolClass(scClassService.getSchoolClassById(scClassDto.getScClassId()));
+
+		return studentClassRepository.save(studentClass);
+	}
 
 }
