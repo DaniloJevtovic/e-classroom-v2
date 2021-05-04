@@ -13,22 +13,23 @@ public class SchoolClassService {
 
 	@Autowired
 	SchoolClassRepository schoolClassRepository;
-	
+
 	public List<SchoolClass> getAllSchoolClasses() {
 		return schoolClassRepository.findAll();
 	}
-	
+
 	public SchoolClass getSchoolClassById(Long schoolClassId) {
 		return schoolClassRepository.findById(schoolClassId).orElse(null);
 	}
-	
+
 	public SchoolClass newSchoolClass(SchoolClass scClass) {
 		return schoolClassRepository.save(scClass);
 	}
-	
+
 	public SchoolClass editSchoolClass(Long scClassId, SchoolClass scClass) {
 		SchoolClass schoolClass = getSchoolClassById(scClassId);
-		schoolClass = scClass;
+		schoolClass.setName(scClass.getName());
+		schoolClass.setDescription(scClass.getDescription());
 		return schoolClassRepository.save(schoolClass);
 	}
 
