@@ -36,7 +36,11 @@ insert into student_class (name, description, school_class_id) values ('IIA', 'd
 insert into student_class (name, description, school_class_id) values ('IIB', 'drugo B odjeljenje', 2)
 insert into student_class (name, description, school_class_id) values ('IIC', 'drugo C dojeljenje', 2)
 
+insert into student_class (name, description, school_class_id) values ('IIIA', 'trece C dojeljenje', 3)
+
 --predmeti
 INSERT INTO courses (name, description, is_deleted, teacher_id, school_class_id) VALUES ('mat1', 'opis predmeta', false, 2, 1)
 INSERT INTO courses (name, description, is_deleted, teacher_id, school_class_id) VALUES ('srp1', 'srpski jezik za 1 razred', false, 3, 1)
+INSERT INTO courses (name, description, is_deleted, teacher_id, school_class_id) VALUES ('mat2', 'matematika za II razred', false, 2, 2)
+INSERT INTO courses (name, description, is_deleted, teacher_id, school_class_id) VALUES ('mat3', 'matematika za III razred', false, 2, 3)
 
