@@ -38,5 +38,14 @@ public class MaterialService {
 
 		return materialRepository.save(material);
 	}
+	
+	public Material editMaterial(Long materialId, MaterialDto materialDto) {
+		Material material = getMaterialById(materialId);
+		material.setName(materialDto.getName());
+		material.setDescription(materialDto.getDescription());
+		material.setCourse(courseService.getCourseById(materialDto.getCourseId()));
+
+		return materialRepository.save(material);
+	}
 
 }
