@@ -44,3 +44,7 @@ INSERT INTO courses (name, description, is_deleted, teacher_id, school_class_id)
 INSERT INTO courses (name, description, is_deleted, teacher_id, school_class_id) VALUES ('mat2', 'matematika za II razred', false, 2, 2)
 INSERT INTO courses (name, description, is_deleted, teacher_id, school_class_id) VALUES ('mat3', 'matematika za III razred', false, 2, 3)
 
+--materijali
+INSERT INTO materials (name, description, course_id) VALUES ('lekcija 1', 'opis lekcije 1', 1)
+INSERT INTO materials (name, description, course_id) VALUES ('lekcija 2', 'opis lekcije 2', 1)
+
