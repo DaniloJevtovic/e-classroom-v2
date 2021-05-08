@@ -19,6 +19,8 @@ public class File {
 	private Long id;
 
 	private String name;
+	
+	private String url;
 
 	@Lob
 	private byte[] data;
@@ -60,6 +62,14 @@ public class File {
 
 	public void setMaterial(Material material) {
 		this.material = material;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }
