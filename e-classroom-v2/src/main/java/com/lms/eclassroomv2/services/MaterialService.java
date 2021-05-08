@@ -43,9 +43,13 @@ public class MaterialService {
 		Material material = getMaterialById(materialId);
 		material.setName(materialDto.getName());
 		material.setDescription(materialDto.getDescription());
-		material.setCourse(courseService.getCourseById(materialDto.getCourseId()));
+		//material.setCourse(courseService.getCourseById(materialDto.getCourseId()));
 
 		return materialRepository.save(material);
+	}
+	
+	public void deleteMaterial(Long materialId) {
+		materialRepository.deleteById(materialId);
 	}
 
 }

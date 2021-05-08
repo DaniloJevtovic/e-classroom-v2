@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +36,7 @@ public class MaterialController {
 	public Material getMaterialById(@PathVariable Long materialId) {
 		return materialService.getMaterialById(materialId);
 	}
-	
+
 	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
 	@GetMapping(value = "/course/{courseId}")
 	public List<Material> getAllMaterialsForCourse(@PathVariable Long courseId) {
@@ -47,11 +48,16 @@ public class MaterialController {
 	public Material addNewMaterial(@RequestBody MaterialDto materialDto) {
 		return materialService.newMaterial(materialDto);
 	}
-	
+
 	@PreAuthorize("hasRole ('TEACHER')")
 	@PutMapping("/{materialId}")
 	public Material editMaterial(@PathVariable Long materialId, @RequestBody MaterialDto materialDto) {
 		return materialService.editMaterial(materialId, materialDto);
 	}
 
+	@PreAuthorize("hasRole ('TEACHER')")
+	@DeleteMapping("/{materialId}")
+	public void deleteMaterial(@PathVariable Long materialId) {
+		materialService.deleteMaterial(materialId);
+	}
 }
