@@ -32,6 +32,10 @@ public class StudentService {
 	public List<Student> getAllStudents() {
 		return studentRepository.findAll();
 	}
+	
+	public Student getStudentById(Long studentId) {
+		return studentRepository.findById(studentId).orElse(null);
+	}
 
 	// svi ucenici iz odjeljenja
 	public List<Student> getStudentsByStudentClass(Long classId) {
