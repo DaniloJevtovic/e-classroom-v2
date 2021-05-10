@@ -48,6 +48,10 @@ public class FileService {
 
 		return fileRepository.save(file);
 	}
+	
+	public void deleteFileById(Long fileId) {
+		fileRepository.deleteById(fileId);
+	}
 
 	public void deleteFilesForMaterial(Long materialId) {
 		List<File> materialFiles = getFilesForMaterial(materialId);
