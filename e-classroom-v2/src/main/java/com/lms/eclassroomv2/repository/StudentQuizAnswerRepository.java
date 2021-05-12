@@ -11,6 +11,9 @@ public interface StudentQuizAnswerRepository extends JpaRepository<StudentQuizAn
 
 	Optional<StudentQuizAnswer> findById(Long stQuizAnsId);
 	
+	//posluzice za brisanje kviza
+	StudentQuizAnswer findByStudentQuizResultIdAndAnswerId(Long stQuizRes, Long ansId);
+	
 	//odgovori za odredjeni rezultat kviza - svi odgovori
 	List<StudentQuizAnswer> findByStudentQuizResultId(Long stQuizResId);
 	
