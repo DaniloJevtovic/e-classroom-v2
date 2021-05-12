@@ -34,6 +34,11 @@ public class StudentQuizAnswerService {
 		return stQuizAnswerRepository.findById(stQuizAnsId).orElse(null);
 	}
 
+	// za brisanje - id rezultata iz kojeg se brise i id pitanja
+	public StudentQuizAnswer getStQuizAnswerByResultIdAndAnswerId(Long resId, Long answId) {
+		return stQuizAnswerRepository.findByStudentQuizResultIdAndAnswerId(resId, answId);
+	}
+
 	// svi odgovori za rezultat (jednog ucenika)
 	public List<StudentQuizAnswer> getAnswersByStQuizRes(Long stQuizResId) {
 		return stQuizAnswerRepository.findByStudentQuizResultId(stQuizResId);
@@ -57,15 +62,15 @@ public class StudentQuizAnswerService {
 		return stQuizAnswerRepository.save(stQuizAnswer);
 	}
 
-	public void deleteAnswer(Long stQuizAnsId) {
-		StudentQuizAnswer studentQuizAnswer = getStQuizAnswerById(stQuizAnsId);
-		Long stQuizResId = studentQuizAnswer.getStudentQuizResult().getId();
-		Answer answer = studentQuizAnswer.getAnswer();
+	public void deleteAnswer(Long stResId, Long ansId) {
+		StudentQuizAnswer studentQuizAnswer = getStQuizAnswerByResultIdAndAnswerId(stResId, ansId);
+		//Answer answer = studentQuizAnswer.getAnswer();
 
-		updatePointsToResultDeselct(stQuizResId, answer);
+		Answer answer = answerService.getAnswerById(ansId);
+		
+		updatePointsToResultDeselct(stResId, answer);
 
-		stQuizAnswerRepository.deleteById(stQuizAnsId);
-
+		stQuizAnswerRepository.deleteById(studentQuizAnswer.getId());
 	}
 
 	// f-ja za update poena u rezultatima kad ucenik oznaci odgovor
