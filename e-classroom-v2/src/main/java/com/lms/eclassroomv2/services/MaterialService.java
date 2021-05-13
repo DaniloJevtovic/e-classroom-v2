@@ -17,9 +17,12 @@ public class MaterialService {
 
 	@Autowired
 	CourseService courseService;
-	
+
 	@Autowired
 	FileService fileService;
+
+	@Autowired
+	MaterialCommentService matCommentService;
 
 	public List<Material> getAllMaterials() {
 		return materialRepository.findAll();
@@ -41,18 +44,19 @@ public class MaterialService {
 
 		return materialRepository.save(material);
 	}
-	
+
 	public Material editMaterial(Long materialId, MaterialDto materialDto) {
 		Material material = getMaterialById(materialId);
 		material.setName(materialDto.getName());
 		material.setDescription(materialDto.getDescription());
-		//material.setCourse(courseService.getCourseById(materialDto.getCourseId()));
+		// material.setCourse(courseService.getCourseById(materialDto.getCourseId()));
 
 		return materialRepository.save(material);
 	}
-	
+
 	public void deleteMaterial(Long materialId) {
 		fileService.deleteFilesForMaterial(materialId);
+		matCommentService.deleteAllCommentsForMat(materialId);
 		materialRepository.deleteById(materialId);
 	}
 
