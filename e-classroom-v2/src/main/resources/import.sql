@@ -82,7 +82,15 @@ INSERT INTO answers (answer, correct, question_id) VALUES ('odg2 pit2', false, 5
 INSERT INTO answers (answer, correct, question_id) VALUES ('odg3 pit2', true, 5)
 INSERT INTO answers (answer, correct, question_id) VALUES ('odg4 pit2', false, 5)
 
+--postovi i komentari
+INSERT INTO course_posts(post, course_id, author_id) values ('objava za mat1', 1, 2)
+INSERT INTO post_comments(comment, post_id, author_id) values ('komentar 1. za objavu1 iz mat1', 1, 4)
+INSERT INTO post_comments(comment, post_id, author_id) values ('komentar 2. za objavu1 iz mat1', 1, 2)
+INSERT INTO post_comments(comment, post_id, author_id) values ('komentar 2. za objavu1 iz mat1', 1, 5)
 
+INSERT INTO course_posts(post, course_id, author_id) values ('objava 2 za mat1', 1, 2)
+INSERT INTO post_comments(comment, post_id, author_id) values ('komentar 1. za objavu2 iz mat1', 2, 5)
+INSERT INTO post_comments(comment, post_id, author_id) values ('komentar 2. za objavu2 iz mat1', 2, 7)
 
 
 
