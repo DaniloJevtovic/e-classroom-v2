@@ -20,7 +20,7 @@ public class PostService {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	PostCommentService postCommentService;
 
@@ -40,7 +40,14 @@ public class PostService {
 
 		return postRepository.save(post);
 	}
-	
+
+	public Post updatePost(Long postId, PostDto postDto) {
+		Post post = getPostById(postId);
+		post.setPost(postDto.getPost());
+
+		return postRepository.save(post);
+	}
+
 	public void deletePostById(Long postId) {
 		postCommentService.deleteCommentsForPost(postId);
 		postRepository.deleteById(postId);
