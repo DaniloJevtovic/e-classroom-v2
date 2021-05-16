@@ -13,6 +13,9 @@ public class Student extends User {
 	@ManyToOne
 	StudentClass studentClass;
 	
+	@ManyToOne
+	StudentParent stParent;
+	
 	public Student() {
 		
 	}
@@ -23,6 +26,14 @@ public class Student extends User {
 
 	public void setStudentClass(StudentClass studentClass) {
 		this.studentClass = studentClass;
+	}
+
+	public StudentParent getStParent() {
+		return stParent;
+	}
+
+	public void setStParent(StudentParent stParent) {
+		this.stParent = stParent;
 	}
 
 }

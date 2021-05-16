@@ -8,6 +8,7 @@ public class StudentDto {
 	private String firstName;
 	private String lastName;
 	private Long stClassId;
+	private Long parentId;
 
 	public String getUsername() {
 		return username;
@@ -55,6 +56,14 @@ public class StudentDto {
 
 	public void setStClassId(Long stClassId) {
 		this.stClassId = stClassId;
+	}
+
+	public Long getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
 	}
 
 }
