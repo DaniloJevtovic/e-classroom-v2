@@ -29,10 +29,13 @@ public class StudentService {
 	@Autowired
 	AuthorityService authorityService;
 
+	@Autowired
+	StudentParentService parentService;
+
 	public List<Student> getAllStudents() {
 		return studentRepository.findAll();
 	}
-	
+
 	public Student getStudentById(Long studentId) {
 		return studentRepository.findById(studentId).orElse(null);
 	}
@@ -55,6 +58,10 @@ public class StudentService {
 		return getStudentsFromSchoolClass(courseClassId);
 	}
 
+	public List<Student> getStudentsForParent(Long parentId) {
+		return studentRepository.findByStParentId(parentId);
+	}
+
 	public Student addNewStudent(StudentDto studentDto) {
 		Student student = new Student();
 		student.setEmail(studentDto.getEmail());
@@ -64,6 +71,7 @@ public class StudentService {
 		student.setLastName(studentDto.getLastName());
 		student.setEnabled(true);
 		student.setStudentClass(stClassService.getStudentClassById(studentDto.getStClassId()));
+		student.setStParent(parentService.getStParentById(studentDto.getParentId()));
 
 		List<Authority> authorities = authorityService.findByname("ROLE_STUDENT");
 		student.setAuthorities(authorities);

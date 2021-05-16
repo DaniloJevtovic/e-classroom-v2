@@ -14,4 +14,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 	//svi ucenici iz razreda
 	List<Student> findByStudentClassSchoolClassId(Long schoolClassId);
 
+	//za roditelja svi njegovi ucenici (djeca)
+	List<Student> findByStParentId(Long stParentId);
 }
