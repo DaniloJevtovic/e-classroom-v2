@@ -27,25 +27,37 @@ public class StudentController {
 	public List<Student> getAllUsers() {
 		return studentService.getAllStudents();
 	}
-	
+
+	@PreAuthorize("hasRole ('ADMIN') or hasRole ('TEACHER') or hasRole('STUDENT') or hasRole('PARENT')")
+	@GetMapping(value = "/{studentId}")
+	public Student getStudentById(@PathVariable Long studentId) {
+		return studentService.getStudentById(studentId);
+	}
+
 	@PreAuthorize("hasRole ('ADMIN') or hasRole ('TEACHER')")
 	@GetMapping(value = "/stClass/{classId}")
 	public List<Student> getAllStudentsFromStClass(@PathVariable Long classId) {
 		return studentService.getStudentsByStudentClass(classId);
 	}
-	
+
 	@PreAuthorize("hasRole ('ADMIN') or hasRole ('TEACHER')")
 	@GetMapping(value = "/scClass/{scClassId}")
 	public List<Student> getStudentsFromSchoolClass(@PathVariable Long scClassId) {
 		return studentService.getStudentsFromSchoolClass(scClassId);
 	}
-	
+
+	@PreAuthorize("hasRole ('ADMIN') or hasRole ('TEACHER') or hasRole ('PARENT')")
+	@GetMapping(value = "/parent/{parentId}")
+	public List<Student> getStudentsForParent(@PathVariable Long parentId) {
+		return studentService.getStudentsForParent(parentId);
+	}
+
 	@PreAuthorize("hasRole ('ADMIN') or hasRole ('TEACHER')")
 	@GetMapping(value = "/course/{courseId}")
 	public List<Student> getStudentsByCourse(@PathVariable Long courseId) {
 		return studentService.getStudentsFromCourse(courseId);
 	}
-	
+
 	@PreAuthorize("hasRole ('ADMIN')")
 	@PostMapping
 	public Student addNewStudent(@RequestBody StudentDto studentDto) {

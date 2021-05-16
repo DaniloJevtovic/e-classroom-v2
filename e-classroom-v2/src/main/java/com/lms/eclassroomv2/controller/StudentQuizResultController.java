@@ -18,7 +18,7 @@ import com.lms.eclassroomv2.services.StudentQuizResultService;
 @RestController
 @RequestMapping(value = "api/results")
 public class StudentQuizResultController {
-	
+
 	@Autowired
 	StudentQuizResultService stQuizResultService;
 
@@ -27,20 +27,19 @@ public class StudentQuizResultController {
 	public StudentQuizResult getResultById(@PathVariable Long resId) {
 		return stQuizResultService.getStQuizResById(resId);
 	}
-	
-	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
+
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT') or hasRole('PARENT')")
 	@GetMapping(value = "/student/{studentId}")
 	public List<StudentQuizResult> getAllResultsForStudent(@PathVariable Long studentId) {
 		return stQuizResultService.getAllResultsForStudent(studentId);
 	}
-	
-	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
+
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT') or hasRole('PARENT')")
 	@GetMapping(value = "/student/{studentId}/quiz/{quizId}")
-	public StudentQuizResult getResultForStudentAndQuiz(
-			@PathVariable Long studentId, @PathVariable Long quizId) {
+	public StudentQuizResult getResultForStudentAndQuiz(@PathVariable Long studentId, @PathVariable Long quizId) {
 		return stQuizResultService.getResultForStudentAndQuiz(studentId, quizId);
 	}
-	
+
 	@PreAuthorize("hasRole ('STUDENT')")
 	@PostMapping
 	public StudentQuizResult createStudentQuizResult(@RequestBody StudentQuizResultDto stQuizResDto) {
