@@ -23,25 +23,25 @@ public class MessageController {
 	@Autowired
 	MessageService messageService;
 
-	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT') or hasRole('PARENT')")
 	@GetMapping(value = "/{messageId}")
 	public Message getMessageById(@PathVariable Long messageId) {
 		return messageService.getMessageById(messageId);
 	}
 
-	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT') or hasRole('PARENT')")
 	@GetMapping(value = "/recived/{reciverId}")
 	public List<Message> getRecivedMessages(@PathVariable Long reciverId) {
 		return messageService.getRecivedMessages(reciverId);
 	}
 
-	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')  or hasRole('PARENT')")
 	@GetMapping(value = "/sent/{senderId}")
 	public List<Message> getSendedMessages(@PathVariable Long senderId) {
 		return messageService.getSendedMessages(senderId);
 	}
 
-	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')  or hasRole('PARENT')")
 	@PostMapping
 	public Message sendMessage(@RequestBody MessageDto messageDto) {
 		return messageService.sendMessage(messageDto);
