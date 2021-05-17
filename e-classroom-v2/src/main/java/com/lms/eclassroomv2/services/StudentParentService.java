@@ -21,6 +21,10 @@ public class StudentParentService {
 	
 	@Autowired
 	AuthorityService authorityService;
+	
+	public List<StudentParent> getAllParents() {
+		return stParentRepository.findAll();
+	}
 
 	public StudentParent getStParentById(Long stParentId) {
 		return stParentRepository.findById(stParentId).orElse(null);

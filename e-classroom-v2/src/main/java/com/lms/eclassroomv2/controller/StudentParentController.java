@@ -1,5 +1,7 @@
 package com.lms.eclassroomv2.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,12 @@ public class StudentParentController {
 	
 	@Autowired
 	StudentParentService stParentService;
+	
+	@PreAuthorize("hasRole ('ADMIN') or hasRole ('TEACHER')")
+	@GetMapping
+	public List<StudentParent> getAllParents() {
+		return stParentService.getAllParents();
+	}
 	
 	@PreAuthorize("hasRole ('ADMIN') or hasRole ('TEACHER')")
 	@GetMapping(value = "/{stParentId}")
