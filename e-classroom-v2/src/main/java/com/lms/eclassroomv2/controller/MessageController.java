@@ -30,13 +30,13 @@ public class MessageController {
 	}
 
 	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
-	@GetMapping(value = "/{reciverId}")
+	@GetMapping(value = "/recived/{reciverId}")
 	public List<Message> getRecivedMessages(@PathVariable Long reciverId) {
 		return messageService.getRecivedMessages(reciverId);
 	}
 
 	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
-	@GetMapping(value = "/{senderId}")
+	@GetMapping(value = "/sent/{senderId}")
 	public List<Message> getSendedMessages(@PathVariable Long senderId) {
 		return messageService.getSendedMessages(senderId);
 	}
