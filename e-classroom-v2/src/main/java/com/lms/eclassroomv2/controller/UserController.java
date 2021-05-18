@@ -19,7 +19,7 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	@PreAuthorize("hasRole ('ADMIN')")
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT') or hasRole('PARENT')")
 	@GetMapping()
 	public List<User> getAllUsers() {
 		return userService.getAllUsers();
