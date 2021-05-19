@@ -18,6 +18,9 @@ public class StResCommentService {
 	@Autowired
 	StudentQuizResultService stResultService;
 
+	@Autowired
+	UserService userService;
+
 	public StudentResultComment getStResComById(Long resComId) {
 		return stResCommentRepository.findById(resComId).orElse(null);
 	}
@@ -30,10 +33,11 @@ public class StResCommentService {
 		StudentResultComment stResComment = new StudentResultComment();
 		stResComment.setComment(stResComDto.getComment());
 		stResComment.setStudentResult(stResultService.getStQuizResById(stResComDto.getResultId()));
+		stResComment.setAuthor(userService.getUserById(stResComDto.getAuthorId()));
 
 		return stResCommentRepository.save(stResComment);
 	}
-	
+
 	public void deleteResCommById(Long resCommId) {
 		stResCommentRepository.deleteById(resCommId);
 	}

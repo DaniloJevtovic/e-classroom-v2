@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +22,9 @@ public class StudentResultComment {
 
 	@ManyToOne
 	StudentQuizResult studentResult;
+	
+	@OneToOne
+	User author;
 
 	public StudentResultComment() {
 
@@ -48,6 +52,14 @@ public class StudentResultComment {
 
 	public void setStudentResult(StudentQuizResult studentResult) {
 		this.studentResult = studentResult;
+	}
+
+	public User getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(User author) {
+		this.author = author;
 	}
 
 }
