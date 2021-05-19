@@ -38,6 +38,11 @@ public class StudentQuizResultService {
 	public StudentQuizResult getResultForStudentAndQuiz(Long studentId, Long quizId) {
 		return stQuizResultRepository.findByStudentIdAndQuizId(studentId, quizId);
 	}
+	
+	// svi rezultati za odredjeni kviz - da profesor moze da vidi rezultate i komentarise ih
+	public List<StudentQuizResult> getAllResultsForQuiz(Long quizId) {
+		return stQuizResultRepository.findByQuizId(quizId);
+	}
 
 	public StudentQuizResult saveResult(StudentQuizResultDto stQuizResDto) {
 		StudentQuizResult studentQuizResult = new StudentQuizResult();

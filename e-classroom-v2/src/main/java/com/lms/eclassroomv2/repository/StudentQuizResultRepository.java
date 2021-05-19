@@ -16,5 +16,8 @@ public interface StudentQuizResultRepository extends JpaRepository<StudentQuizRe
 
 	// rezultati za odredjeni kviz i odrejenog ucenika
 	StudentQuizResult findByStudentIdAndQuizId(Long studentId, Long quizId);
+	
+	//svi rezultati za odredjeni kviz - da profesor vidi rezultate tog kviza
+	List<StudentQuizResult> findByQuizId(Long quizId);
 
 }

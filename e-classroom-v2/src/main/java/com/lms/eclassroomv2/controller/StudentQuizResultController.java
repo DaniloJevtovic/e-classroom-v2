@@ -39,6 +39,12 @@ public class StudentQuizResultController {
 	public StudentQuizResult getResultForStudentAndQuiz(@PathVariable Long studentId, @PathVariable Long quizId) {
 		return stQuizResultService.getResultForStudentAndQuiz(studentId, quizId);
 	}
+	
+	@PreAuthorize("hasRole('TEACHER')")
+	@GetMapping(value = "/quiz/{quizId}")
+	public List<StudentQuizResult> getAllResultForQuiz(@PathVariable Long quizId) {
+		return stQuizResultService.getAllResultsForQuiz(quizId);
+	}
 
 	@PreAuthorize("hasRole ('STUDENT')")
 	@PostMapping
