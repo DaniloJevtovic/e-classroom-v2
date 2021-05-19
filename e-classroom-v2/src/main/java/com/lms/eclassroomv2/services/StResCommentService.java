@@ -33,4 +33,8 @@ public class StResCommentService {
 
 		return stResCommentRepository.save(stResComment);
 	}
+	
+	public void deleteResCommById(Long resCommId) {
+		stResCommentRepository.deleteById(resCommId);
+	}
 }

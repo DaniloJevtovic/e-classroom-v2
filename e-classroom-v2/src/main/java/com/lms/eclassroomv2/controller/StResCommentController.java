@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,12 @@ public class StResCommentController {
 	@PostMapping
 	public StudentResultComment addResComment(@RequestBody StudentResultCommentDto stResComDto) {
 		return stResCommentService.addNewResComment(stResComDto);
+	}
+	
+	@PreAuthorize("hasRole('TEACHER') or hasRole('STUDENT')")
+	@DeleteMapping("/{resCommId}")
+	public void deleteComment(@PathVariable Long resCommId) {
+		stResCommentService.deleteResCommById(resCommId);
 	}
 
 }
