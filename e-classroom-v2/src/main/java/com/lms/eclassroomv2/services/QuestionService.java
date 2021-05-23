@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lms.eclassroomv2.model.Question;
+import com.lms.eclassroomv2.model.QuestionType;
 import com.lms.eclassroomv2.model.dto.QuestionDto;
 import com.lms.eclassroomv2.repository.QuestionRepository;
 
@@ -17,8 +18,8 @@ public class QuestionService {
 
 	@Autowired
 	QuizService quizService;
-	
-	@Autowired 
+
+	@Autowired
 	AnswerService answerService;
 
 	public List<Question> getAllQuestions() {
@@ -38,6 +39,7 @@ public class QuestionService {
 		question.setQuestion(questionDto.getQuestion());
 		question.setPoints(questionDto.getPoints());
 		question.setQuiz(quizService.getQuizById(questionDto.getQuizId()));
+		question.setQuestionType(QuestionType.valueOf(questionDto.getQuestionType()));
 
 		return questionRepository.save(question);
 	}
