@@ -48,6 +48,7 @@ public class QuestionService {
 		Question question = getQuestionById(questionId);
 		question.setQuestion(questionDto.getQuestion());
 		question.setPoints(questionDto.getPoints());
+		question.setQuestionType(QuestionType.valueOf(questionDto.getQuestionType()));
 
 		return questionRepository.save(question);
 	}
