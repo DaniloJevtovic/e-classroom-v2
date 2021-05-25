@@ -37,7 +37,7 @@ public class QuizService {
 		quiz.setInstructions(quizDto.getInstructions());
 		quiz.setDuration(quizDto.getDuration());
 		quiz.setCourse(courseService.getCourseById(quizDto.getCourseId()));
-		quiz.setStatus(QuizStatus.ACTIVE);
+		quiz.setQuizStatus(QuizStatus.INACTIVE);	//da ne bi odma ucenici mogli da ga rjesavaju kad se kreira kviz
 
 		return quizRepository.save(quiz);
 	}
@@ -47,6 +47,7 @@ public class QuizService {
 		quiz.setName(quizDto.getName());
 		quiz.setInstructions(quizDto.getInstructions());
 		quiz.setDuration(quizDto.getDuration());
+		quiz.setQuizStatus(QuizStatus.valueOf(quizDto.getQuizStatus()));
 
 		return quizRepository.save(quiz);
 	}
@@ -54,7 +55,7 @@ public class QuizService {
 	// logicko brisanje!
 	public void deleteQuiz(Long quizId) {
 		Quiz quiz = getQuizById(quizId);
-		quiz.setStatus(QuizStatus.DELETED);
+		quiz.setQuizStatus(QuizStatus.DELETED);
 		quizRepository.save(quiz);
 	}
 }

@@ -42,8 +42,9 @@ public class Quiz {
 	@Column(name = "date_to")
 	private Timestamp dateTo;
 
+	@Column(name = "quiz_status")
 	@Enumerated(EnumType.ORDINAL)
-	QuizStatus status;
+	QuizStatus quizStatus;
 
 	@ManyToOne
 	Course course;
@@ -100,12 +101,12 @@ public class Quiz {
 		this.dateTo = dateTo;
 	}
 
-	public QuizStatus getStatus() {
-		return status;
+	public QuizStatus getQuizStatus() {
+		return quizStatus;
 	}
 
-	public void setStatus(QuizStatus status) {
-		this.status = status;
+	public void setQuizStatus(QuizStatus quizStatus) {
+		this.quizStatus = quizStatus;
 	}
 
 	public Course getCourse() {

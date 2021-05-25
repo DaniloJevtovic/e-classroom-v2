@@ -61,7 +61,7 @@ INSERT INTO material_comments(comment, author_id, material_id) VALUES('kom2 lekc
 INSERT INTO material_comments(comment, author_id, material_id) VALUES('kom1 lekcija 2', 2, 2)
 
 --kviz 1 - sa pitanjima i odgovorima
-INSERT INTO quizzes (name, instructions, duration, course_id) VALUES ('kviz 1', 'instrukcije za kviz 1', 15, 1)
+INSERT INTO quizzes (name, instructions, duration, course_id, quiz_status) VALUES ('kviz 1', 'instrukcije za kviz 1', 15, 1, 1)
 
 INSERT INTO questions (question, points, quiz_id, question_type) VALUES ('pit 1 kv1', 2, 1, 0)
 INSERT INTO questions (question, points, quiz_id, question_type) VALUES ('pit 2 kv1', 3, 1, 0)
@@ -78,7 +78,7 @@ INSERT INTO answers (answer, correct, question_id) VALUES ('odg3 pit2', true, 2)
 INSERT INTO answers (answer, correct, question_id) VALUES ('odg4 pit2', false, 2)
 
 --kviz 2 - sa pitanjima i odgovorima
-INSERT INTO quizzes (name, instructions, duration, course_id) VALUES ('kviz 2', 'instrukcije za kviz 2', 30, 1)
+INSERT INTO quizzes (name, instructions, duration, course_id, quiz_status) VALUES ('kviz 2', 'instrukcije za kviz 2', 30, 1, 1)
 
 INSERT INTO questions (question, points, quiz_id, question_type) VALUES ('pit1 kv2', 2, 2, 0)
 INSERT INTO questions (question, points, quiz_id, question_type) VALUES ('pit2 kv2', 3, 2, 0)

@@ -6,6 +6,7 @@ public class QuizDto {
 	private String instructions;
 	private int duration;
 	private Long courseId;
+	private String quizStatus;
 
 	public String getName() {
 		return name;
@@ -37,6 +38,14 @@ public class QuizDto {
 
 	public void setCourseId(Long courseId) {
 		this.courseId = courseId;
+	}
+
+	public String getQuizStatus() {
+		return quizStatus;
+	}
+
+	public void setQuizStatus(String quizStatus) {
+		this.quizStatus = quizStatus;
 	}
 
 }
