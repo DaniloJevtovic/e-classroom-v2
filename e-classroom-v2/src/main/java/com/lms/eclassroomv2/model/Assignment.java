@@ -20,6 +20,8 @@ public class Assignment {
 	private String name;
 
 	private String instructions;
+	
+	private int points;
 
 	@ManyToOne
 	Course course;
@@ -58,5 +60,13 @@ public class Assignment {
 
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}
 }
