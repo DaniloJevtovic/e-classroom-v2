@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "assignments")
+@Table(name = "assignments") 
 public class Assignment {
 
 	@Id
