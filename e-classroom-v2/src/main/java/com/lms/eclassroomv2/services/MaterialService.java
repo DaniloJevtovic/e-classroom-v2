@@ -3,6 +3,8 @@ package com.lms.eclassroomv2.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -49,24 +51,34 @@ public class MaterialService {
 		return materialRepository.findByCourseId(courseId);
 	}
 
-	public Material newMaterial(MaterialDto materialDto) {
-		Material material = new Material();
-		material.setName(materialDto.getName());
-		material.setDescription(materialDto.getDescription());
-		material.setCourse(courseService.getCourseById(materialDto.getCourseId()));
+	public ResponseEntity<?> newMaterial(MaterialDto materialDto) {
 
-		//kad se postavi novi materijal da se na zid postavi objava
-		Post post = new Post();
-		post.setCourse(courseService.getCourseById(materialDto.getCourseId()));
-		post.setPost("Postavljen je novi materijal: " + material.getName());
+		try {
+			Material material = new Material();
+			material.setName(materialDto.getName());
+			material.setDescription(materialDto.getDescription());
+			material.setCourse(courseService.getCourseById(materialDto.getCourseId()));
 
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = ((UserDetails) principal).getUsername();
+			// kad se postavi novi materijal da se na zid postavi objava
+			Post post = new Post();
+			post.setCourse(courseService.getCourseById(materialDto.getCourseId()));
+			post.setPost("Postavljen je novi materijal: " + material.getName());
 
-		post.setAuthor(userService.getUserByUsername(username));
-		postRepository.save(post);
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String username = ((UserDetails) principal).getUsername();
 
-		return materialRepository.save(material);
+			post.setAuthor(userService.getUserByUsername(username));
+			postRepository.save(post);
+
+			materialRepository.save(material);
+
+			return new ResponseEntity<>("Materijala uspjesno kreiran", HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return new ResponseEntity<>("Greska u kreiranju materijala", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 	public Material editMaterial(Long materialId, MaterialDto materialDto) {
