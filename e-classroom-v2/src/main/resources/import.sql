@@ -11,13 +11,15 @@ INSERT INTO users (role, username, password, first_name, last_name, email, enabl
 
 --ucenici
 INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date, student_class_id, st_parent_id) VALUES ('student', 'ucPrviA', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Ucenik Ia', 'Prvog', 'uc1a_prvog@gmail.com', true, '2021-04-15 21:58:58', 1, 8);
-INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date, student_class_id) VALUES ('student', 'ucPrviA2', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Ucenik Ia - 2 ', 'Prvog', 'uc1a2_prvog@gmail.com', true, '2021-04-15 21:58:58', 1);
+INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date, student_class_id, st_parent_id) VALUES ('student', 'ucPrviA2', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Ucenik Ia - 2 ', 'Prvog', 'uc1a2_prvog@gmail.com', true, '2021-04-15 21:58:58', 1, 9);
 
-INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date, student_class_id) VALUES ('student', 'ucPrviB', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Ucenik IB', 'Prvog', 'uc1a_prvogB@gmail.com', true, '2021-04-15 21:58:58', 2);
-INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date, student_class_id) VALUES ('student', 'ucPrviB2', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Ucenik IB - 2 ', 'Prvog', 'uc1a2_prvogB@gmail.com', true, '2021-04-15 21:58:58', 2);
+INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date, student_class_id, st_parent_id) VALUES ('student', 'ucPrviB', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Ucenik IB', 'Prvog', 'uc1a_prvogB@gmail.com', true, '2021-04-15 21:58:58', 2, 8);
+INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date, student_class_id, st_parent_id) VALUES ('student', 'ucPrviB2', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Ucenik IB - 2 ', 'Prvog', 'uc1a2_prvogB@gmail.com', true, '2021-04-15 21:58:58', 2, 10);
 
 --roditelji
-INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date) VALUES ('parent', 'rodPrviA', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Roditelj uc IA', 'Prvog A', 'rod_prvog@gmail.com', true, '2021-04-15 21:58:58');
+INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date) VALUES ('parent', 'rodPrviAB', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Roditelj uc IA/B', 'Prvog AB', 'rod_prvog@gmail.com', true, '2021-04-15 21:58:58');
+INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date) VALUES ('parent', 'rodPrviA2', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Roditelj uc IA2', 'Prvog A2', 'rod_prvog2@gmail.com', true, '2021-04-15 21:58:58');
+INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date) VALUES ('parent', 'rodPrviB', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Roditelj uc IB', 'Prvog B', 'rod_prvog@gmail.com', true, '2021-04-15 21:58:58');
 
 --dodjela uloga
 INSERT INTO user_authority (user_id, authority_id) VALUES (1, 1);
@@ -28,6 +30,8 @@ INSERT INTO user_authority (user_id, authority_id) VALUES (5, 3);
 INSERT INTO user_authority (user_id, authority_id) VALUES (6, 3);
 INSERT INTO user_authority (user_id, authority_id) VALUES (7, 3);
 INSERT INTO user_authority (user_id, authority_id) VALUES (8, 4);
+INSERT INTO user_authority (user_id, authority_id) VALUES (9, 4);
+INSERT INTO user_authority (user_id, authority_id) VALUES (10, 4);
 
 --razredi -- I, II, III, IV
 insert into school_class (name, description) values ('I', 'prvi razred')
@@ -45,8 +49,8 @@ insert into student_class (name, description, school_class_id) values ('IIC', 'd
 insert into student_class (name, description, school_class_id) values ('IIIA', 'trece C dojeljenje', 3)
 
 --predmeti
-INSERT INTO courses (name, description, is_deleted, teacher_id, school_class_id) VALUES ('mat1', 'opis predmeta', false, 2, 1)
-INSERT INTO courses (name, description, is_deleted, teacher_id, school_class_id) VALUES ('srp1', 'srpski jezik za 1 razred', false, 3, 1)
+INSERT INTO courses (name, description, is_deleted, teacher_id, school_class_id) VALUES ('mat1', 'matematika za I razred', false, 2, 1)
+INSERT INTO courses (name, description, is_deleted, teacher_id, school_class_id) VALUES ('srp1', 'srpski jezik za I razred', false, 3, 1)
 INSERT INTO courses (name, description, is_deleted, teacher_id, school_class_id) VALUES ('mat2', 'matematika za II razred', false, 2, 2)
 INSERT INTO courses (name, description, is_deleted, teacher_id, school_class_id) VALUES ('mat3', 'matematika za III razred', false, 2, 3)
 
