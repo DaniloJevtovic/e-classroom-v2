@@ -3,6 +3,8 @@ package com.lms.eclassroomv2.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.lms.eclassroomv2.model.Message;
@@ -30,14 +32,24 @@ public class MessageService {
 		return messageRepository.findBySenderId(senderId);
 	}
 
-	public Message sendMessage(MessageDto messageDto) {
-		Message message = new Message();
-		message.setSubject(messageDto.getSubject());
-		message.setMessage(messageDto.getMessage());
-		message.setSender(userService.getUserById(messageDto.getSenderId()));
-		message.setReciver(userService.getUserById(messageDto.getReciverId()));
+	public ResponseEntity<?> sendMessage(MessageDto messageDto) {
 
-		return messageRepository.save(message);
+		try {
+			Message message = new Message();
+			message.setSubject(messageDto.getSubject());
+			message.setMessage(messageDto.getMessage());
+			message.setSender(userService.getUserById(messageDto.getSenderId()));
+			message.setReciver(userService.getUserById(messageDto.getReciverId()));
+
+			messageRepository.save(message);
+
+			return new ResponseEntity<>("Poruka uspjesno poslata", HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return new ResponseEntity<>("Nije moguce poslati poruku", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 	public void deleteMessageById(Long messageId) {

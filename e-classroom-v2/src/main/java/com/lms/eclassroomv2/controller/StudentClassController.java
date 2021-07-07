@@ -3,6 +3,7 @@ package com.lms.eclassroomv2.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,13 +49,13 @@ public class StudentClassController {
 
 	@PreAuthorize("hasRole ('ADMIN')")
 	@PostMapping
-	public StudentClass newStudentClass(@RequestBody StudentClassDto stClassDto) {
+	public ResponseEntity<?> newStudentClass(@RequestBody StudentClassDto stClassDto) {
 		return stClassService.newStudentClass(stClassDto);
 	}
 
 	@PreAuthorize("hasRole ('ADMIN')")
 	@PutMapping("/{stClassId}")
-	public StudentClass editStudentClass(@PathVariable Long stClassId, @RequestBody StudentClassDto stClassDto) {
+	public ResponseEntity<?> editStudentClass(@PathVariable Long stClassId, @RequestBody StudentClassDto stClassDto) {
 		return stClassService.editStudentClass(stClassId, stClassDto);
 	}
 

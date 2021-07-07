@@ -3,6 +3,8 @@ package com.lms.eclassroomv2.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.lms.eclassroomv2.model.StudentClass;
@@ -20,7 +22,7 @@ public class StudentClassService {
 
 	@Autowired
 	CourseService courseService;
-	
+
 	public List<StudentClass> getAllStudentClasses() {
 		return studentClassRepository.findAll();
 	}
@@ -28,36 +30,53 @@ public class StudentClassService {
 	public StudentClass getStudentClassById(Long studentClassId) {
 		return studentClassRepository.findById(studentClassId).orElse(null);
 	}
-	
-	//sva odjeljenja za razred
+
+	// sva odjeljenja za razred
 	public List<StudentClass> getAllStClassesForScClass(Long schoolClassId) {
 		return studentClassRepository.findBySchoolClassId(schoolClassId);
 	}
-	
-	//sva odjeljenja za predmet - profesor
+
+	// sva odjeljenja za predmet - profesor
 	public List<StudentClass> getAllStClassesForCourse(Long courseId) {
-		//izvucem razred kojem predmet pripada
+		// izvucem razred kojem predmet pripada
 		Long courseClassId = courseService.getCourseById(courseId).getSchoolClass().getId();
-		//za taj id razreda izvucem sva odjeljenja koja mu pripadaju
+		// za taj id razreda izvucem sva odjeljenja koja mu pripadaju
 		return getAllStClassesForScClass(courseClassId);
 	}
 
-	public StudentClass newStudentClass(StudentClassDto scClassDto) {
-		StudentClass studentClass = new StudentClass();
-		studentClass.setName(scClassDto.getName());
-		studentClass.setDescription(scClassDto.getDescription());
-		studentClass.setSchoolClass(scClassService.getSchoolClassById(scClassDto.getScClassId()));
+	public ResponseEntity<?> newStudentClass(StudentClassDto scClassDto) {
 
-		return studentClassRepository.save(studentClass);
+		try {
+			StudentClass studentClass = new StudentClass();
+			studentClass.setName(scClassDto.getName());
+			studentClass.setDescription(scClassDto.getDescription());
+			studentClass.setSchoolClass(scClassService.getSchoolClassById(scClassDto.getScClassId()));
+
+			studentClassRepository.save(studentClass);
+			return new ResponseEntity<>("Odjeljenje uspjesno kreirano", HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Nije moguce kreirati odjeljenje", HttpStatus.BAD_REQUEST);
+		}
+
 	}
-	
-	public StudentClass editStudentClass(Long stClassId, StudentClassDto scClassDto) {
-		StudentClass studentClass = getStudentClassById(stClassId);
-		studentClass.setName(scClassDto.getName());
-		studentClass.setDescription(scClassDto.getDescription());
-		studentClass.setSchoolClass(scClassService.getSchoolClassById(scClassDto.getScClassId()));
 
-		return studentClassRepository.save(studentClass);
+	public ResponseEntity<?> editStudentClass(Long stClassId, StudentClassDto scClassDto) {
+		try {
+			StudentClass studentClass = getStudentClassById(stClassId);
+			studentClass.setName(scClassDto.getName());
+			studentClass.setDescription(scClassDto.getDescription());
+			studentClass.setSchoolClass(scClassService.getSchoolClassById(scClassDto.getScClassId()));
+
+			studentClassRepository.save(studentClass);
+			return new ResponseEntity<>("Odjeljenje uspjesno izmjenjeno", HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Nije moguce izmjeniti odjeljenje.", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 }
