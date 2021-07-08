@@ -3,6 +3,8 @@ package com.lms.eclassroomv2.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.lms.eclassroomv2.model.Answer;
@@ -30,27 +32,42 @@ public class AnswerService {
 		return answerRepository.findByQuestionId(questionId);
 	}
 
-	public Answer addNewAnswer(AnswerDto answerDto) {
-		Answer answer = new Answer();
-		answer.setAnswer(answerDto.getAnswer());
-		answer.setCorrect(answerDto.isCorrect());
-		answer.setQuestion(questionService.getQuestionById(answerDto.getQuestionId()));
-		return answerRepository.save(answer);
+	public ResponseEntity<?> addNewAnswer(AnswerDto answerDto) {
+		try {
+			Answer answer = new Answer();
+			answer.setAnswer(answerDto.getAnswer());
+			answer.setCorrect(answerDto.isCorrect());
+			answer.setQuestion(questionService.getQuestionById(answerDto.getQuestionId()));
+			answerRepository.save(answer);
+			return new ResponseEntity<>("Odgovor uspjesno dodat", HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Greska u dodavanju odgovora", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
-	public Answer updateAnswer(Long answerId, AnswerDto answerDto) {
-		Answer answer = getAnswerById(answerId);
-		answer.setAnswer(answerDto.getAnswer());
-		answer.setCorrect(answerDto.isCorrect());
+	public ResponseEntity<?> updateAnswer(Long answerId, AnswerDto answerDto) {
+		try {
+			Answer answer = getAnswerById(answerId);
+			answer.setAnswer(answerDto.getAnswer());
+			answer.setCorrect(answerDto.isCorrect());
+			answerRepository.save(answer);
+			return new ResponseEntity<>("Odgovor uspjesno azuriran", HttpStatus.OK);
 
-		return answerRepository.save(answer);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Greska u azuriranju odgovora", HttpStatus.BAD_REQUEST);
+		}
+
 	}
-	
+
 	public void deleteAnswer(Long answerId) {
 		answerRepository.deleteById(answerId);
 	}
-	
-	public void deleteAllAnswersForQuestion (Long questionId) {
+
+	public void deleteAllAnswersForQuestion(Long questionId) {
 		List<Answer> questionAnswers = getAnswersForQuestion(questionId);
 		answerRepository.deleteAll(questionAnswers);
 	}
