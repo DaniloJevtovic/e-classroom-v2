@@ -64,22 +64,30 @@ public class CourseService {
 			course.setSchoolClass(schoolClassService.getSchoolClassById(courseDto.getSchoolClassId()));
 			courseRepository.save(course);
 			return new ResponseEntity<>("Predmet uspjesno kreiran!", HttpStatus.CREATED);
+
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return new ResponseEntity<>("Nije moguce kreirati prdmet!", HttpStatus.BAD_REQUEST);
 		}
 
 	}
 
-	public Course updateCourse(Long courseId, CourseDto courseDto) {
-		Course course = getCourseById(courseId);
-		course.setName(courseDto.getName());
-		course.setDescription(courseDto.getDescription());
-		course.setTeacher(teacherService.getTeacherById(courseDto.getTeacherId()));
-		course.setSchoolClass(schoolClassService.getSchoolClassById(courseDto.getSchoolClassId()));
+	public ResponseEntity<?> updateCourse(Long courseId, CourseDto courseDto) {
+		try {
+			Course course = getCourseById(courseId);
+			course.setName(courseDto.getName());
+			course.setDescription(courseDto.getDescription());
+			course.setTeacher(teacherService.getTeacherById(courseDto.getTeacherId()));
+			course.setSchoolClass(schoolClassService.getSchoolClassById(courseDto.getSchoolClassId()));
 
-		return courseRepository.save(course);
+			courseRepository.save(course);
+			return new ResponseEntity<>("Predmet uspjesno azuriran", HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Nije moguce azurirati predmet", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 	// logicko brisanje! - mozes da napravis kao arhiviranje kursa - pa samo da mu

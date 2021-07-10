@@ -63,7 +63,7 @@ public class CourseController {
 
 	@PreAuthorize("hasRole ('ADMIN')")
 	@PutMapping("/{courseId}")
-	public Course updateCourse(@PathVariable Long courseId, @RequestBody CourseDto courseDto) {
+	public ResponseEntity<?> updateCourse(@PathVariable Long courseId, @RequestBody CourseDto courseDto) {
 		return courseService.updateCourse(courseId, courseDto);
 	}
 
