@@ -61,8 +61,8 @@ public class UserService {
 			map.put("message", "podaci uspjesno azurirani");
 
 			return new ResponseEntity<>(map, HttpStatus.OK);
+			
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return new ResponseEntity<>("Greska", HttpStatus.BAD_REQUEST);
 		}
