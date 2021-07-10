@@ -55,12 +55,12 @@ INSERT INTO courses (name, description, is_deleted, teacher_id, school_class_id)
 INSERT INTO courses (name, description, is_deleted, teacher_id, school_class_id) VALUES ('mat3', 'matematika za III razred', false, 2, 3)
 
 --materijali
-INSERT INTO materials (name, description, course_id) VALUES ('lekcija 1', 'opis lekcije 1', 1)
-INSERT INTO materials (name, description, course_id) VALUES ('lekcija 2', 'opis lekcije 2', 1)
+INSERT INTO materials (name, description, course_id, creation_date) VALUES ('lekcija 1', 'opis lekcije 1', 1, '2021-07-10 13:57:23')
+INSERT INTO materials (name, description, course_id, creation_date) VALUES ('lekcija 2', 'opis lekcije 2', 1, '2021-07-10 13:57:23')
 
 --komentari za materijal
-INSERT INTO material_comments(comment, author_id, material_id) VALUES('kom1 lekcija 1', 2, 1)
-INSERT INTO material_comments(comment, author_id, material_id) VALUES('kom2 lekcija 1', 2, 1)
+INSERT INTO material_comments(comment, author_id, material_id, creation_date) VALUES('kom1 lekcija 1', 2, 1)
+INSERT INTO material_comments(comment, author_id, material_id, creation_date) VALUES('kom2 lekcija 1', 2, 1)
 
 INSERT INTO material_comments(comment, author_id, material_id) VALUES('kom1 lekcija 2', 2, 2)
 

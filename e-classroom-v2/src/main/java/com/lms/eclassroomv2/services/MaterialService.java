@@ -1,5 +1,7 @@
 package com.lms.eclassroomv2.services;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +60,7 @@ public class MaterialService {
 			material.setName(materialDto.getName());
 			material.setDescription(materialDto.getDescription());
 			material.setCourse(courseService.getCourseById(materialDto.getCourseId()));
+			material.setCreationDate(new Timestamp(new Date().getTime()));
 
 			// kad se postavi novi materijal da se na zid postavi objava
 			Post post = new Post();
@@ -73,8 +76,8 @@ public class MaterialService {
 			materialRepository.save(material);
 
 			return new ResponseEntity<>("Materijala uspjesno kreiran", HttpStatus.OK);
+			
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return new ResponseEntity<>("Greska u kreiranju materijala", HttpStatus.BAD_REQUEST);
 		}
