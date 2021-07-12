@@ -71,6 +71,7 @@ public class MaterialService {
 			String username = ((UserDetails) principal).getUsername();
 
 			post.setAuthor(userService.getUserByUsername(username));
+			post.setDate(new Timestamp(new Date().getTime()));
 			postRepository.save(post);
 
 			materialRepository.save(material);

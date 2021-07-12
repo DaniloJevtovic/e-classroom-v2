@@ -1,5 +1,7 @@
 package com.lms.eclassroomv2.services;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,7 @@ public class MessageService {
 			message.setMessage(messageDto.getMessage());
 			message.setSender(userService.getUserById(messageDto.getSenderId()));
 			message.setReciver(userService.getUserById(messageDto.getReciverId()));
+			message.setDate(new Timestamp(new Date().getTime()));
 
 			messageRepository.save(message);
 

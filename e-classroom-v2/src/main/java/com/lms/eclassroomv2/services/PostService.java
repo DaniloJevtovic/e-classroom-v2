@@ -1,5 +1,7 @@
 package com.lms.eclassroomv2.services;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,7 @@ public class PostService {
 		post.setPost(postDto.getPost());
 		post.setCourse(courseService.getCourseById(postDto.getCourseId()));
 		post.setAuthor(userService.getUserById(postDto.getAuthorId()));
+		post.setDate(new Timestamp(new Date().getTime()));
 
 		return postRepository.save(post);
 	}
