@@ -1,5 +1,7 @@
 package com.lms.eclassroomv2.model;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,27 +10,33 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "massages")
 public class Message {
-	
+
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String subject;
-	
+
 	private String message;
-	
+
+	@Column(name = "mess_date")
+	@JsonFormat(pattern = "dd.MM.yyyy / HH:mm:ss", timezone = "Europe/Belgrade")
+	private Timestamp date;
+
 	@OneToOne
 	User sender;
-	
+
 	@OneToOne
 	User reciver;
-	
+
 	public Message() {
-		
+
 	}
 
 	public Long getId() {
@@ -69,6 +77,14 @@ public class Message {
 
 	public void setReciver(User reciver) {
 		this.reciver = reciver;
+	}
+
+	public Timestamp getDate() {
+		return date;
+	}
+
+	public void setDate(Timestamp date) {
+		this.date = date;
 	}
 
 }
