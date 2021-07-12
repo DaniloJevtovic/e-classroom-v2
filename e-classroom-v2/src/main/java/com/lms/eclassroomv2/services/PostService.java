@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.lms.eclassroomv2.model.Post;
@@ -34,21 +36,35 @@ public class PostService {
 		return postRepository.findByCourseId(courseId);
 	}
 
-	public Post newPost(PostDto postDto) {
-		Post post = new Post();
-		post.setPost(postDto.getPost());
-		post.setCourse(courseService.getCourseById(postDto.getCourseId()));
-		post.setAuthor(userService.getUserById(postDto.getAuthorId()));
-		post.setDate(new Timestamp(new Date().getTime()));
+	public ResponseEntity<?> newPost(PostDto postDto) {
+		try {
+			Post post = new Post();
+			post.setPost(postDto.getPost());
+			post.setCourse(courseService.getCourseById(postDto.getCourseId()));
+			post.setAuthor(userService.getUserById(postDto.getAuthorId()));
+			post.setDate(new Timestamp(new Date().getTime()));
 
-		return postRepository.save(post);
+			return ResponseEntity.ok(postRepository.save(post));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Greska u objavi", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
-	public Post updatePost(Long postId, PostDto postDto) {
-		Post post = getPostById(postId);
-		post.setPost(postDto.getPost());
+	public ResponseEntity<?> updatePost(Long postId, PostDto postDto) {
+		try {
+			Post post = getPostById(postId);
+			post.setPost(postDto.getPost());
 
-		return postRepository.save(post);
+			postRepository.save(post);
+
+			return new ResponseEntity<>("Objave uspjesno izmjenjena", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Greska u uzmjeni objave", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 	public void deletePostById(Long postId) {
