@@ -27,11 +27,13 @@ public class MessageService {
 	}
 
 	public List<Message> getRecivedMessages(Long reciverId) {
-		return messageRepository.findByReciverId(reciverId);
+		//return messageRepository.findByReciverId(reciverId);
+		return messageRepository.findByReciverIdOrderByDateDesc(reciverId);
 	}
 
 	public List<Message> getSendedMessages(Long senderId) {
-		return messageRepository.findBySenderId(senderId);
+		//return messageRepository.findBySenderId(senderId);
+		return messageRepository.findBySenderIdOrderByDateDesc(senderId);
 	}
 
 	public ResponseEntity<?> sendMessage(MessageDto messageDto) {

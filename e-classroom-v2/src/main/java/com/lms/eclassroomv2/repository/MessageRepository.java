@@ -10,8 +10,13 @@ import com.lms.eclassroomv2.model.Message;
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
 	Optional<Message> findById(Long messageId);
-	
+
 	List<Message> findBySenderId(Long senderId);
-	
+
+	List<Message> findBySenderIdOrderByDateDesc(Long senderId);
+
 	List<Message> findByReciverId(Long reciverId);
+
+	List<Message> findByReciverIdOrderByDateDesc(Long reciverId);
+
 }
