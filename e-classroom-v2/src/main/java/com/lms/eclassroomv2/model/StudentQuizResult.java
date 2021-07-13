@@ -19,6 +19,10 @@ public class StudentQuizResult {
 
 	private int points;
 
+	//koliko je ucenik vremenski rjesavao kviz
+	@Column(name = "solve_duration")
+	private double solveDuration;
+	
 	@ManyToOne
 	private Student student;
 
@@ -66,5 +70,13 @@ public class StudentQuizResult {
 
 	public void setQuiz(Quiz quiz) {
 		this.quiz = quiz;
+	}
+
+	public double getSolveDuration() {
+		return solveDuration;
+	}
+
+	public void setSolveDuration(double solveDuration) {
+		this.solveDuration = solveDuration;
 	}
 }

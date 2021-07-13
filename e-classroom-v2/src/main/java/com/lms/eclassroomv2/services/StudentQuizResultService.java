@@ -49,6 +49,7 @@ public class StudentQuizResultService {
 		studentQuizResult.setPoints(0);
 		studentQuizResult.setStudent(studentService.getStudentById(stQuizResDto.getStudentId()));
 		studentQuizResult.setQuiz(quizService.getQuizById(stQuizResDto.getQuizId()));
+		studentQuizResult.setSolveDuration(stQuizResDto.getSolveDuration());
 
 		return stQuizResultRepository.save(studentQuizResult);
 	}

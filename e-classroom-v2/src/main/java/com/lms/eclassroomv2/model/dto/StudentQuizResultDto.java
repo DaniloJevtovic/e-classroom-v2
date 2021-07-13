@@ -5,6 +5,7 @@ public class StudentQuizResultDto {
 	private int points;
 	private Long studentId;
 	private Long quizId;
+	private double solveDuration;
 
 	public int getPoints() {
 		return points;
@@ -28,6 +29,14 @@ public class StudentQuizResultDto {
 
 	public void setQuizId(Long quizId) {
 		this.quizId = quizId;
+	}
+
+	public double getSolveDuration() {
+		return solveDuration;
+	}
+
+	public void setSolveDuration(double solveDuration) {
+		this.solveDuration = solveDuration;
 	}
 
 }
