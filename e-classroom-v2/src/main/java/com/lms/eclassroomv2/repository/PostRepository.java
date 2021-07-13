@@ -10,7 +10,10 @@ import com.lms.eclassroomv2.model.Post;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
 	Optional<Post> findById(Long postId);
-	
+
 	List<Post> findByCourseId(Long courseId);
-	
+
+	//po datumu opadajuce
+	List<Post> findByCourseIdOrderByDateDesc(Long courseId);
+
 }

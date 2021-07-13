@@ -33,7 +33,9 @@ public class PostService {
 	}
 
 	public List<Post> getPostsForCourse(Long courseId) {
-		return postRepository.findByCourseId(courseId);
+		//return postRepository.findByCourseId(courseId);
+		//po datumu opadajuce - da najnovija objava bude prva
+		return postRepository.findByCourseIdOrderByDateDesc(courseId);
 	}
 
 	public ResponseEntity<?> newPost(PostDto postDto) {
