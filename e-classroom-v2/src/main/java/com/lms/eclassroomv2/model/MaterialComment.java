@@ -1,5 +1,7 @@
 package com.lms.eclassroomv2.model;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "material_comments")
@@ -22,6 +26,10 @@ public class MaterialComment {
 
 	@ManyToOne
 	Material material;
+	
+	@Column(name = "mc_date")
+	@JsonFormat(pattern = "dd.MM.yyyy / HH:mm:ss", timezone = "Europe/Belgrade")
+	private Timestamp date;
 
 	@OneToOne
 	User author;
@@ -60,6 +68,14 @@ public class MaterialComment {
 
 	public void setAuthor(User author) {
 		this.author = author;
+	}
+
+	public Timestamp getDate() {
+		return date;
+	}
+
+	public void setDate(Timestamp date) {
+		this.date = date;
 	}
 
 }

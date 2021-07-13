@@ -1,5 +1,7 @@
 package com.lms.eclassroomv2.services;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,7 @@ public class MaterialCommentService {
 		materialComment.setComment(matComDto.getComment());
 		materialComment.setMaterial(materialService.getMaterialById(matComDto.getMaterialId()));
 		materialComment.setAuthor(userService.getUserById(matComDto.getAuthorId()));
+		materialComment.setDate(new Timestamp(new Date().getTime()));
 
 		return matCommentRepository.save(materialComment);
 	}
