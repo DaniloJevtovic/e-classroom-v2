@@ -1,5 +1,7 @@
 package com.lms.eclassroomv2.services;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,7 @@ public class StudentQuizResultService {
 		studentQuizResult.setStudent(studentService.getStudentById(stQuizResDto.getStudentId()));
 		studentQuizResult.setQuiz(quizService.getQuizById(stQuizResDto.getQuizId()));
 		studentQuizResult.setSolveDuration(stQuizResDto.getSolveDuration());
+		studentQuizResult.setDate(new Timestamp(new Date().getTime()));
 
 		return stQuizResultRepository.save(studentQuizResult);
 	}

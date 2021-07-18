@@ -1,5 +1,7 @@
 package com.lms.eclassroomv2.model;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "student_quiz_results")
@@ -28,6 +32,10 @@ public class StudentQuizResult {
 
 	@ManyToOne
 	private Quiz quiz;
+	
+	@Column(name = "result_date")
+	@JsonFormat(pattern = "dd.MM.yyyy / HH:mm:ss", timezone = "Europe/Belgrade")
+	private Timestamp date;
 
 	public StudentQuizResult() {
 
@@ -78,5 +86,13 @@ public class StudentQuizResult {
 
 	public void setSolveDuration(double solveDuration) {
 		this.solveDuration = solveDuration;
+	}
+
+	public Timestamp getDate() {
+		return date;
+	}
+
+	public void setDate(Timestamp date) {
+		this.date = date;
 	}
 }
