@@ -59,13 +59,13 @@ INSERT INTO materials (name, description, course_id, creation_date) VALUES ('lek
 INSERT INTO materials (name, description, course_id, creation_date) VALUES ('lekcija 2', 'opis lekcije 2', 1, '2021-07-10 13:57:23')
 
 --komentari za materijal
-INSERT INTO material_comments(comment, author_id, material_id, creation_date) VALUES('kom1 lekcija 1', 2, 1)
-INSERT INTO material_comments(comment, author_id, material_id, creation_date) VALUES('kom2 lekcija 1', 2, 1)
+INSERT INTO material_comments(comment, author_id, material_id, mc_date) VALUES('kom1 lekcija 1', 2, 1, '2021-07-12 18:57:43')
+INSERT INTO material_comments(comment, author_id, material_id, mc_date) VALUES('kom2 lekcija 1', 2, 1, '2021-07-11 11:51:53')
 
-INSERT INTO material_comments(comment, author_id, material_id) VALUES('kom1 lekcija 2', 2, 2)
+INSERT INTO material_comments(comment, author_id, material_id, mc_date) VALUES('kom1 lekcija 2', 2, 2, '2021-07-12 16:25:26')
 
 --kviz 1 - sa pitanjima i odgovorima
-INSERT INTO quizzes (name, instructions, duration, course_id, quiz_status) VALUES ('kviz 1', 'instrukcije za kviz 1', 15, 1, 1)
+INSERT INTO quizzes (name, instructions, duration, total_points, course_id, quiz_status) VALUES ('kviz 1', 'instrukcije za kviz 1', 15, 7, 1, 1)
 
 INSERT INTO questions (question, points, quiz_id, question_type) VALUES ('pit 1 kv1', 2, 1, 0)
 INSERT INTO questions (question, points, quiz_id, question_type) VALUES ('pit 2 kv1', 3, 1, 0)
@@ -82,7 +82,7 @@ INSERT INTO answers (answer, correct, question_id) VALUES ('odg3 pit2', true, 2)
 INSERT INTO answers (answer, correct, question_id) VALUES ('odg4 pit2', false, 2)
 
 --kviz 2 - sa pitanjima i odgovorima
-INSERT INTO quizzes (name, instructions, duration, course_id, quiz_status) VALUES ('kviz 2', 'instrukcije za kviz 2', 30, 1, 1)
+INSERT INTO quizzes (name, instructions, duration, total_points, course_id, quiz_status) VALUES ('kviz 2', 'instrukcije za kviz 2', 30, 10, 1, 1)
 
 INSERT INTO questions (question, points, quiz_id, question_type) VALUES ('pit1 kv2', 2, 2, 0)
 INSERT INTO questions (question, points, quiz_id, question_type) VALUES ('pit2 kv2', 3, 2, 0)
@@ -100,13 +100,13 @@ INSERT INTO answers (answer, correct, question_id) VALUES ('odg4 pit2', false, 5
 
 --postovi i komentari
 INSERT INTO course_posts(post, course_id, author_id, post_date) values ('objava za mat1', 1, 2, '2021-07-10 13:57:23')
-INSERT INTO post_comments(comment, post_id, author_id) values ('komentar 1. za objavu1 iz mat1', 1, 4)
-INSERT INTO post_comments(comment, post_id, author_id) values ('komentar 2. za objavu1 iz mat1', 1, 2)
-INSERT INTO post_comments(comment, post_id, author_id) values ('komentar 2. za objavu1 iz mat1', 1, 5)
+INSERT INTO post_comments(comment, post_id, author_id, pc_date) values ('komentar 1. za objavu1 iz mat1', 1, 4, '2021-07-11 19:14:53')
+INSERT INTO post_comments(comment, post_id, author_id, pc_date) values ('komentar 2. za objavu1 iz mat1', 1, 2, '2021-07-12 11:46:26')
+INSERT INTO post_comments(comment, post_id, author_id, pc_date) values ('komentar 2. za objavu1 iz mat1', 1, 5, '2021-07-13 12:27:13')
 
 INSERT INTO course_posts(post, course_id, author_id, post_date) values ('objava 2 za mat1', 1, 2, '2021-07-11 15:24:13')
-INSERT INTO post_comments(comment, post_id, author_id) values ('komentar 1. za objavu2 iz mat1', 2, 5)
-INSERT INTO post_comments(comment, post_id, author_id) values ('komentar 2. za objavu2 iz mat1', 2, 7)
+INSERT INTO post_comments(comment, post_id, author_id, pc_date) values ('komentar 1. za objavu2 iz mat1', 2, 5, '2021-07-11 15:17:53')
+INSERT INTO post_comments(comment, post_id, author_id, pc_date) values ('komentar 2. za objavu2 iz mat1', 2, 7, '2021-07-11 10:51:25')
 
 
 
