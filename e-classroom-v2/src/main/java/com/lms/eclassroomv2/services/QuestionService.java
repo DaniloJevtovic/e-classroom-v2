@@ -38,8 +38,11 @@ public class QuestionService {
 		Question question = new Question();
 		question.setQuestion(questionDto.getQuestion());
 		question.setPoints(questionDto.getPoints());
+		
 		question.setQuiz(quizService.getQuizById(questionDto.getQuizId()));
 		question.setQuestionType(QuestionType.valueOf(questionDto.getQuestionType()));
+
+		quizService.updatePointsToQuiz(questionDto.getQuizId(), questionDto.getPoints());
 
 		return questionRepository.save(question);
 	}
@@ -49,6 +52,8 @@ public class QuestionService {
 		question.setQuestion(questionDto.getQuestion());
 		question.setPoints(questionDto.getPoints());
 		question.setQuestionType(QuestionType.valueOf(questionDto.getQuestionType()));
+
+		quizService.updatePointsToQuiz(question.getQuiz().getId(), questionDto.getPoints());
 
 		return questionRepository.save(question);
 	}

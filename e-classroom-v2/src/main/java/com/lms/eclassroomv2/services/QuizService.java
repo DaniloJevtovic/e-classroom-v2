@@ -39,6 +39,7 @@ public class QuizService {
 			quiz.setName(quizDto.getName());
 			quiz.setInstructions(quizDto.getInstructions());
 			quiz.setDuration(quizDto.getDuration());
+			quiz.setTotalPoints(0);
 			quiz.setCourse(courseService.getCourseById(quizDto.getCourseId()));
 			quiz.setQuizStatus(QuizStatus.INACTIVE); // da ne bi odma ucenici mogli da ga rjesavaju kad se kreira kviz
 
@@ -46,7 +47,6 @@ public class QuizService {
 			return new ResponseEntity<>("Kviz uspjesno kreiran", HttpStatus.CREATED);
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return new ResponseEntity<>("Greska u kreiranju kviza", HttpStatus.BAD_REQUEST);
 		}
@@ -60,6 +60,16 @@ public class QuizService {
 		quiz.setDuration(quizDto.getDuration());
 		quiz.setQuizStatus(QuizStatus.valueOf(quizDto.getQuizStatus()));
 
+		return quizRepository.save(quiz);
+	}
+
+	// svaki put kada se doda novo pitanje i za njega definise broj poena poziva se
+	// ova metoda
+	// koja azurira broj poena u kvizu
+	public Quiz updatePointsToQuiz(Long quizId, int points) {
+		Quiz quiz = getQuizById(quizId);
+		int oldPoints = quiz.getTotalPoints();
+		quiz.setTotalPoints(oldPoints + points);
 		return quizRepository.save(quiz);
 	}
 
