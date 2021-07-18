@@ -38,8 +38,8 @@ public class AnswerService {
 			answer.setAnswer(answerDto.getAnswer());
 			answer.setCorrect(answerDto.isCorrect());
 			answer.setQuestion(questionService.getQuestionById(answerDto.getQuestionId()));
-			answerRepository.save(answer);
-			return new ResponseEntity<>("Odgovor uspjesno dodat", HttpStatus.OK);
+			
+			return new ResponseEntity<>(answerRepository.save(answer), HttpStatus.OK);
 
 		} catch (Exception e) {
 			e.printStackTrace();
