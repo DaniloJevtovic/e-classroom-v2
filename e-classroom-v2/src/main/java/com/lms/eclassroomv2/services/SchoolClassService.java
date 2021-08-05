@@ -71,7 +71,7 @@ public class SchoolClassService {
 			//return new ResponseEntity<>("Razred uspjesno azuriran", HttpStatus.OK);
 			
 			Map<String, Object> res = new HashMap<String, Object>();
-			res.put("body", schoolClassRepository.save(scClass));
+			res.put("body", schoolClassRepository.save(schoolClass));
 			res.put("message", "Razred uspjesno azuriran");
 			
 			return ResponseEntity.ok(res);
