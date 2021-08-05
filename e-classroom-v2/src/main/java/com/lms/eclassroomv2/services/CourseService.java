@@ -1,6 +1,8 @@
-package com.lms.eclassroomv2.services;
+	package com.lms.eclassroomv2.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -62,8 +64,17 @@ public class CourseService {
 			course.setTeacher(teacherService.getTeacherById(courseDto.getTeacherId()));
 			// poslati mejl profesoru da je dodat na predmet
 			course.setSchoolClass(schoolClassService.getSchoolClassById(courseDto.getSchoolClassId()));
-			courseRepository.save(course);
-			return new ResponseEntity<>("Predmet uspjesno kreiran!", HttpStatus.CREATED);
+			
+			//courseRepository.save(course);
+			//return new ResponseEntity<>("Predmet uspjesno kreiran!", HttpStatus.CREATED);
+			
+			//return ResponseEntity.ok(courseRepository.save(course));
+			
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", courseRepository.save(course));
+			res.put("message", "Predmet je uspjesno kreiran");
+			
+			return ResponseEntity.ok(res);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,8 +91,14 @@ public class CourseService {
 			course.setTeacher(teacherService.getTeacherById(courseDto.getTeacherId()));
 			course.setSchoolClass(schoolClassService.getSchoolClassById(courseDto.getSchoolClassId()));
 
-			courseRepository.save(course);
-			return new ResponseEntity<>("Predmet uspjesno azuriran", HttpStatus.OK);
+			//courseRepository.save(course);
+			//return new ResponseEntity<>("Predmet uspjesno azuriran", HttpStatus.OK);
+			
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", courseRepository.save(course));
+			res.put("message", "Predmet uspjesno azuriran");
+			
+			return ResponseEntity.ok(res);
 
 		} catch (Exception e) {
 			e.printStackTrace();

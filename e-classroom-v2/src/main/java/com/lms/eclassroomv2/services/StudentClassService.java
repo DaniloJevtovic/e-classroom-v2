@@ -1,6 +1,8 @@
 package com.lms.eclassroomv2.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,8 +54,16 @@ public class StudentClassService {
 			studentClass.setDescription(scClassDto.getDescription());
 			studentClass.setSchoolClass(scClassService.getSchoolClassById(scClassDto.getScClassId()));
 
-			studentClassRepository.save(studentClass);
-			return new ResponseEntity<>("Odjeljenje uspjesno kreirano", HttpStatus.OK);
+			//studentClassRepository.save(studentClass);
+			//return new ResponseEntity<>("Odjeljenje uspjesno kreirano", HttpStatus.OK);
+			
+			//return ResponseEntity.ok(studentClassRepository.save(studentClass));
+			
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", studentClassRepository.save(studentClass));
+			res.put("message", "Odjeljenje uspjesno kreirano");
+			
+			return ResponseEntity.ok(res);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,8 +79,14 @@ public class StudentClassService {
 			studentClass.setDescription(scClassDto.getDescription());
 			studentClass.setSchoolClass(scClassService.getSchoolClassById(scClassDto.getScClassId()));
 
-			studentClassRepository.save(studentClass);
-			return new ResponseEntity<>("Odjeljenje uspjesno izmjenjeno", HttpStatus.OK);
+			//studentClassRepository.save(studentClass);
+			//return new ResponseEntity<>("Odjeljenje uspjesno izmjenjeno", HttpStatus.OK);
+			
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", studentClassRepository.save(studentClass));
+			res.put("message", "Odjeljenje uspjesno azurirano");
+			
+			return ResponseEntity.ok(res);
 
 		} catch (Exception e) {
 			e.printStackTrace();

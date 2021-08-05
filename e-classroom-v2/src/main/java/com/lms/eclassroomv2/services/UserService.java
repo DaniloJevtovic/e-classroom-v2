@@ -56,11 +56,11 @@ public class UserService {
 			user.setEmail(updateUserDto.getEmail());
 			userRepository.save(user);
 
-			Map<String, Object> map = new HashMap<>();
-			map.put("user", userRepository.save(user));
-			map.put("message", "podaci uspjesno azurirani");
+			Map<String, Object> res = new HashMap<>();
+			res.put("body", userRepository.save(user));
+			res.put("message", "Podaci uspjesno azurirani");
 
-			return new ResponseEntity<>(map, HttpStatus.OK);
+			return new ResponseEntity<>(res, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

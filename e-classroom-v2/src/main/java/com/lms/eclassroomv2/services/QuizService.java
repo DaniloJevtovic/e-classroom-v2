@@ -1,6 +1,8 @@
 package com.lms.eclassroomv2.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,9 +45,14 @@ public class QuizService {
 			quiz.setCourse(courseService.getCourseById(quizDto.getCourseId()));
 			quiz.setQuizStatus(QuizStatus.INACTIVE); // da ne bi odma ucenici mogli da ga rjesavaju kad se kreira kviz
 
-			quizRepository.save(quiz);
-			return new ResponseEntity<>("Kviz uspjesno kreiran", HttpStatus.CREATED);
+			//quizRepository.save(quiz);
+			//return new ResponseEntity<>("Kviz uspjesno kreiran", HttpStatus.CREATED);
 
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", quizRepository.save(quiz));
+			res.put("message", "Kviz uspjesno kreiran");
+			
+			return ResponseEntity.ok(res);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Greska u kreiranju kviza", HttpStatus.BAD_REQUEST);

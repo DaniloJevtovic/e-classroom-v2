@@ -1,6 +1,8 @@
 package com.lms.eclassroomv2.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,9 +41,17 @@ public class SchoolClassService {
 				return new ResponseEntity<>("Postoji vec kreiran taj razred", HttpStatus.BAD_REQUEST);
 			}
 
-			schoolClassRepository.save(scClass);
+			//schoolClassRepository.save(scClass);
 
-			return new ResponseEntity<>("Razred uspjesno kreiran", HttpStatus.CREATED);
+			//return new ResponseEntity<>("Razred uspjesno kreiran", HttpStatus.CREATED);
+			
+			//return ResponseEntity.ok(schoolClassRepository.save(scClass));
+			
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", schoolClassRepository.save(scClass));
+			res.put("message", "Razred uspjesno kreiran");
+			
+			return ResponseEntity.ok(res);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -55,9 +65,16 @@ public class SchoolClassService {
 			SchoolClass schoolClass = getSchoolClassById(scClassId);
 			schoolClass.setName(scClass.getName());
 			schoolClass.setDescription(scClass.getDescription());
-			schoolClassRepository.save(schoolClass);
+			
+			//schoolClassRepository.save(schoolClass);
 
-			return new ResponseEntity<>("Razred uspjesno azuriran", HttpStatus.OK);
+			//return new ResponseEntity<>("Razred uspjesno azuriran", HttpStatus.OK);
+			
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", schoolClassRepository.save(scClass));
+			res.put("message", "Razred uspjesno azuriran");
+			
+			return ResponseEntity.ok(res);
 
 		} catch (Exception e) {
 			e.printStackTrace();

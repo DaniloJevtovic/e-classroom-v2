@@ -2,7 +2,9 @@ package com.lms.eclassroomv2.services;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -74,9 +76,14 @@ public class MaterialService {
 			post.setDate(new Timestamp(new Date().getTime()));
 			postRepository.save(post);
 
-			materialRepository.save(material);
-
-			return new ResponseEntity<>("Materijala uspjesno kreiran", HttpStatus.OK);
+			//materialRepository.save(material);
+			//return new ResponseEntity<>("Materijala uspjesno kreiran", HttpStatus.OK);
+			
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", materialRepository.save(material));
+			res.put("message", "Materijal uspjesno kreiran");
+			
+			return ResponseEntity.ok(res);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

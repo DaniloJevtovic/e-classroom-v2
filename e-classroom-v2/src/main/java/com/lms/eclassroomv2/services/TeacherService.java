@@ -1,6 +1,8 @@
 package com.lms.eclassroomv2.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,9 +60,15 @@ public class TeacherService {
 			List<Authority> authorities = authorityService.findByname("ROLE_TEACHER");
 			teacher.setAuthorities(authorities);
 
-			teacherRepository.save(teacher);
+			//teacherRepository.save(teacher);
 
-			return new ResponseEntity<>("Profesor uspjesno dodat", HttpStatus.CREATED);
+			//return new ResponseEntity<>("Profesor uspjesno dodat", HttpStatus.CREATED);
+			
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", teacherRepository.save(teacher));
+			res.put("message", "Profesor usjesno dodat");
+			
+			return ResponseEntity.ok(res);
 
 		} catch (Exception e) {
 			e.printStackTrace();
