@@ -3,6 +3,7 @@ package com.lms.eclassroomv2.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +39,7 @@ public class PostCommentController {
 
 	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
 	@PostMapping
-	public PostComment addNewComment(@RequestBody PostCommentDto commentDto) {
+	public ResponseEntity<?> addNewComment(@RequestBody PostCommentDto commentDto) {
 		return commentService.addNewComment(commentDto);
 	}
 
@@ -50,7 +51,7 @@ public class PostCommentController {
 
 	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
 	@DeleteMapping("/{commentId}")
-	public void deleteComment(@PathVariable Long commentId) {
-		commentService.deletePostCommentById(commentId);
+	public ResponseEntity<?> deleteComment(@PathVariable Long commentId) {
+		return commentService.deletePostCommentById(commentId);
 	}
 }

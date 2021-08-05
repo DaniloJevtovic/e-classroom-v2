@@ -35,8 +35,8 @@ public class PostService {
 	}
 
 	public List<Post> getPostsForCourse(Long courseId) {
-		//return postRepository.findByCourseId(courseId);
-		//po datumu opadajuce - da najnovija objava bude prva
+		// return postRepository.findByCourseId(courseId);
+		// po datumu opadajuce - da najnovija objava bude prva
 		return postRepository.findByCourseIdOrderByDateDesc(courseId);
 	}
 
@@ -48,12 +48,12 @@ public class PostService {
 			post.setAuthor(userService.getUserById(postDto.getAuthorId()));
 			post.setDate(new Timestamp(new Date().getTime()));
 
-			///return ResponseEntity.ok(postRepository.save(post));
-			
+			/// return ResponseEntity.ok(postRepository.save(post));
+
 			Map<String, Object> res = new HashMap<String, Object>();
 			res.put("body", postRepository.save(post));
 			res.put("message", "Post objavljen");
-			
+
 			return ResponseEntity.ok(res);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,8 +77,16 @@ public class PostService {
 
 	}
 
-	public void deletePostById(Long postId) {
-		postCommentService.deleteCommentsForPost(postId);
-		postRepository.deleteById(postId);
+	public ResponseEntity<?> deletePostById(Long postId) {
+		try {
+			postCommentService.deleteCommentsForPost(postId);
+			postRepository.deleteById(postId);
+
+			return ResponseEntity.ok("Objava uspjesno obrisana");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Greska u brisanju objave", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 }
