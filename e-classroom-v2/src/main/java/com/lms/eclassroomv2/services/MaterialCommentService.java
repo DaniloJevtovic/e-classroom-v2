@@ -2,9 +2,13 @@ package com.lms.eclassroomv2.services;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.lms.eclassroomv2.model.MaterialComment;
@@ -31,14 +35,25 @@ public class MaterialCommentService {
 		return matCommentRepository.findByMaterialId(matId);
 	}
 
-	public MaterialComment newComment(MaterialCommentDto matComDto) {
-		MaterialComment materialComment = new MaterialComment();
-		materialComment.setComment(matComDto.getComment());
-		materialComment.setMaterial(materialService.getMaterialById(matComDto.getMaterialId()));
-		materialComment.setAuthor(userService.getUserById(matComDto.getAuthorId()));
-		materialComment.setDate(new Timestamp(new Date().getTime()));
+	public ResponseEntity<?> newComment(MaterialCommentDto matComDto) {
 
-		return matCommentRepository.save(materialComment);
+		try {
+			MaterialComment materialComment = new MaterialComment();
+			materialComment.setComment(matComDto.getComment());
+			materialComment.setMaterial(materialService.getMaterialById(matComDto.getMaterialId()));
+			materialComment.setAuthor(userService.getUserById(matComDto.getAuthorId()));
+			materialComment.setDate(new Timestamp(new Date().getTime()));
+
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", matCommentRepository.save(materialComment));
+			res.put("message", "Komentar uspjesno dodat");
+
+			return ResponseEntity.ok(res);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Greska u dodavanju komentara", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 	public MaterialComment updateComment(Long matCommentId, MaterialCommentDto matComDto) {

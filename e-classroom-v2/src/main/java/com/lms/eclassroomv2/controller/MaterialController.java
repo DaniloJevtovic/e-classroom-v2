@@ -52,7 +52,7 @@ public class MaterialController {
 
 	@PreAuthorize("hasRole ('TEACHER')")
 	@PutMapping("/{materialId}")
-	public Material editMaterial(@PathVariable Long materialId, @RequestBody MaterialDto materialDto) {
+	public ResponseEntity<?> editMaterial(@PathVariable Long materialId, @RequestBody MaterialDto materialDto) {
 		return materialService.editMaterial(materialId, materialDto);
 	}
 

@@ -76,15 +76,15 @@ public class MaterialService {
 			post.setDate(new Timestamp(new Date().getTime()));
 			postRepository.save(post);
 
-			//materialRepository.save(material);
-			//return new ResponseEntity<>("Materijala uspjesno kreiran", HttpStatus.OK);
-			
+			// materialRepository.save(material);
+			// return new ResponseEntity<>("Materijala uspjesno kreiran", HttpStatus.OK);
+
 			Map<String, Object> res = new HashMap<String, Object>();
 			res.put("body", materialRepository.save(material));
 			res.put("message", "Materijal uspjesno kreiran");
-			
+
 			return ResponseEntity.ok(res);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Greska u kreiranju materijala", HttpStatus.BAD_REQUEST);
@@ -92,13 +92,24 @@ public class MaterialService {
 
 	}
 
-	public Material editMaterial(Long materialId, MaterialDto materialDto) {
-		Material material = getMaterialById(materialId);
-		material.setName(materialDto.getName());
-		material.setDescription(materialDto.getDescription());
-		// material.setCourse(courseService.getCourseById(materialDto.getCourseId()));
+	public ResponseEntity<?> editMaterial(Long materialId, MaterialDto materialDto) {
+		try {
+			Material material = getMaterialById(materialId);
+			material.setName(materialDto.getName());
+			material.setDescription(materialDto.getDescription());
+			// material.setCourse(courseService.getCourseById(materialDto.getCourseId()));
 
-		return materialRepository.save(material);
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", materialRepository.save(material));
+			res.put("message", "Materijal uspjesno azuriran");
+
+			return ResponseEntity.ok(res);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return new ResponseEntity<>("Greska u azuriranju materijala", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 	public void deleteMaterial(Long materialId) {
