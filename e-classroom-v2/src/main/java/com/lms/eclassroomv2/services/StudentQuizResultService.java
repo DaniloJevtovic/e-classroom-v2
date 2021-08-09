@@ -2,9 +2,13 @@ package com.lms.eclassroomv2.services;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.lms.eclassroomv2.model.StudentQuizResult;
@@ -46,15 +50,30 @@ public class StudentQuizResultService {
 		return stQuizResultRepository.findByQuizId(quizId);
 	}
 
-	public StudentQuizResult saveResult(StudentQuizResultDto stQuizResDto) {
-		StudentQuizResult studentQuizResult = new StudentQuizResult();
+	public ResponseEntity<?> saveResult(StudentQuizResultDto stQuizResDto) {
+		
+		try {
+			StudentQuizResult studentQuizResult = new StudentQuizResult();
 		studentQuizResult.setPoints(0);
 		studentQuizResult.setStudent(studentService.getStudentById(stQuizResDto.getStudentId()));
 		studentQuizResult.setQuiz(quizService.getQuizById(stQuizResDto.getQuizId()));
 		studentQuizResult.setSolveDuration(stQuizResDto.getSolveDuration());
 		studentQuizResult.setDate(new Timestamp(new Date().getTime()));
+		
+		Map<String, Object> res = new HashMap<String, Object>();
+		res.put("body", stQuizResultRepository.save(studentQuizResult));
+		res.put("message", "Rezultat sacuvan");
 
-		return stQuizResultRepository.save(studentQuizResult);
+		return ResponseEntity.ok(res);
+
+		
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return new ResponseEntity<>("Nije moguce sacuvati rezultat", HttpStatus.BAD_REQUEST);
+		}
+		
+		
 	}
 	
 	//promjena poena kad ucenik bude oznacavao tacne/netacne odgovore

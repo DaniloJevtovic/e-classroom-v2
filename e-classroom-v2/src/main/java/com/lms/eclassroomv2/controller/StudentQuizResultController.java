@@ -3,6 +3,7 @@ package com.lms.eclassroomv2.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,7 +49,7 @@ public class StudentQuizResultController {
 
 	@PreAuthorize("hasRole ('STUDENT')")
 	@PostMapping
-	public StudentQuizResult createStudentQuizResult(@RequestBody StudentQuizResultDto stQuizResDto) {
+	public ResponseEntity<?> createStudentQuizResult(@RequestBody StudentQuizResultDto stQuizResDto) {
 		return stQuizResultService.saveResult(stQuizResDto);
 	}
 }
