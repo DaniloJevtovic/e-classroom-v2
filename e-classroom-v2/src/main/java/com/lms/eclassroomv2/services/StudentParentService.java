@@ -1,8 +1,12 @@
 package com.lms.eclassroomv2.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,24 +43,36 @@ public class StudentParentService {
 	 * svaki put roditelj kad se upisuje neko od njegove djece vrsi se provjera da
 	 * li postoji taj roditelj, ako postoji samo ce da vrati vec postojecg
 	 */
-	public StudentParent saveStParent(StudentParent parent) {
+	public ResponseEntity<?> saveStParent(StudentParent parent) {
 		StudentParent checkParent = getParentByEmail(parent.getEmail());
 
 		if (checkParent != null) {
-			return checkParent;
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", checkParent);
+			return new ResponseEntity<>(res, HttpStatus.OK);
 		}
 
-		StudentParent studentParent = new StudentParent();
-		studentParent.setFirstName(parent.getFirstName());
-		studentParent.setLastName(parent.getLastName());
-		studentParent.setEmail(parent.getEmail());
-		studentParent.setUsername(parent.getUsername());
-		studentParent.setPassword(passwordEncoder.encode("123"));
-		studentParent.setEnabled(true);
+		try {
+			StudentParent studentParent = new StudentParent();
+			studentParent.setFirstName(parent.getFirstName());
+			studentParent.setLastName(parent.getLastName());
+			studentParent.setEmail(parent.getEmail());
+			studentParent.setUsername(parent.getUsername());
+			studentParent.setPassword(passwordEncoder.encode("123"));
+			studentParent.setEnabled(true);
 
-		List<Authority> authorities = authorityService.findByname("ROLE_PARENT");
-		studentParent.setAuthorities(authorities);
+			List<Authority> authorities = authorityService.findByname("ROLE_PARENT");
+			studentParent.setAuthorities(authorities);
 
-		return stParentRepository.save(studentParent);
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", stParentRepository.save(studentParent));
+			res.put("message", "Roditelj je uspjesno dodat");
+
+			return ResponseEntity.ok(res);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Greska u dodavanju roditelja", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 }

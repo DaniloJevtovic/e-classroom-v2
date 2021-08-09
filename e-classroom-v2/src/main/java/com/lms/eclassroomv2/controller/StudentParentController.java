@@ -3,6 +3,7 @@ package com.lms.eclassroomv2.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +36,7 @@ public class StudentParentController {
 	
 	@PreAuthorize("hasRole ('ADMIN')")
 	@PostMapping
-	public StudentParent saveParent(@RequestBody StudentParent studentParent) {
+	public ResponseEntity<?> saveParent(@RequestBody StudentParent studentParent) {
 		return stParentService.saveStParent(studentParent);
 	}
 
