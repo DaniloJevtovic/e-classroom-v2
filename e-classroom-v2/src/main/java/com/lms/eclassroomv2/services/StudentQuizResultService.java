@@ -44,40 +44,39 @@ public class StudentQuizResultService {
 	public StudentQuizResult getResultForStudentAndQuiz(Long studentId, Long quizId) {
 		return stQuizResultRepository.findByStudentIdAndQuizId(studentId, quizId);
 	}
-	
-	// svi rezultati za odredjeni kviz - da profesor moze da vidi rezultate i komentarise ih
+
+	// svi rezultati za odredjeni kviz - da profesor moze da vidi rezultate i
+	// komentarise ih
 	public List<StudentQuizResult> getAllResultsForQuiz(Long quizId) {
 		return stQuizResultRepository.findByQuizId(quizId);
 	}
 
 	public ResponseEntity<?> saveResult(StudentQuizResultDto stQuizResDto) {
-		
+
 		try {
 			StudentQuizResult studentQuizResult = new StudentQuizResult();
-		studentQuizResult.setPoints(0);
-		studentQuizResult.setStudent(studentService.getStudentById(stQuizResDto.getStudentId()));
-		studentQuizResult.setQuiz(quizService.getQuizById(stQuizResDto.getQuizId()));
-		studentQuizResult.setSolveDuration(stQuizResDto.getSolveDuration());
-		studentQuizResult.setDate(new Timestamp(new Date().getTime()));
-		
-		Map<String, Object> res = new HashMap<String, Object>();
-		res.put("body", stQuizResultRepository.save(studentQuizResult));
-		res.put("message", "Rezultat sacuvan");
+			studentQuizResult.setPoints(0);
+			studentQuizResult.setStudent(studentService.getStudentById(stQuizResDto.getStudentId()));
+			studentQuizResult.setQuiz(quizService.getQuizById(stQuizResDto.getQuizId()));
+			studentQuizResult.setSolveDuration(stQuizResDto.getSolveDuration());
+			studentQuizResult.setDate(new Timestamp(new Date().getTime()));
 
-		return ResponseEntity.ok(res);
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", stQuizResultRepository.save(studentQuizResult));
+			res.put("message", "Rezultat sacuvan");
 
-		
+			return ResponseEntity.ok(res);
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			return new ResponseEntity<>("Nije moguce sacuvati rezultat", HttpStatus.BAD_REQUEST);
 		}
-		
-		
+
 	}
-	
-	//promjena poena kad ucenik bude oznacavao tacne/netacne odgovore
-	//moze se iskoristi i ako profesor hoce da promjeni poene uceniku
+
+	// promjena poena kad ucenik bude oznacavao tacne/netacne odgovore
+	// moze se iskoristi i ako profesor hoce da promjeni poene uceniku
 	public StudentQuizResult updateResult(Long stQuizRes, int points) {
 		StudentQuizResult stQuizResult = getStQuizResById(stQuizRes);
 		stQuizResult.setPoints(points);
