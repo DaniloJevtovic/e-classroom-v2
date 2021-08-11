@@ -1,6 +1,8 @@
 package com.lms.eclassroomv2.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,8 +40,12 @@ public class AnswerService {
 			answer.setAnswer(answerDto.getAnswer());
 			answer.setCorrect(answerDto.isCorrect());
 			answer.setQuestion(questionService.getQuestionById(answerDto.getQuestionId()));
-			
-			return new ResponseEntity<>(answerRepository.save(answer), HttpStatus.OK);
+
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", answerRepository.save(answer));
+			res.put("message", "Odogovor uspjesno dodat");
+
+			return ResponseEntity.ok(res);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,7 +60,12 @@ public class AnswerService {
 			answer.setAnswer(answerDto.getAnswer());
 			answer.setCorrect(answerDto.isCorrect());
 			answerRepository.save(answer);
-			return new ResponseEntity<>("Odgovor uspjesno azuriran", HttpStatus.OK);
+
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", answerRepository.save(answer));
+			res.put("message", "Odogovor uspjesno izmjenjen");
+
+			return ResponseEntity.ok(res);
 
 		} catch (Exception e) {
 			e.printStackTrace();
