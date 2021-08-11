@@ -1,8 +1,12 @@
 package com.lms.eclassroomv2.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.lms.eclassroomv2.model.Question;
@@ -34,28 +38,50 @@ public class QuestionService {
 		return questionRepository.findByQuizId(quizId);
 	}
 
-	public Question addNewQuestion(QuestionDto questionDto) {
-		Question question = new Question();
-		question.setQuestion(questionDto.getQuestion());
-		question.setPoints(questionDto.getPoints());
-		
-		question.setQuiz(quizService.getQuizById(questionDto.getQuizId()));
-		question.setQuestionType(QuestionType.valueOf(questionDto.getQuestionType()));
+	public ResponseEntity<?> addNewQuestion(QuestionDto questionDto) {
+		try {
+			Question question = new Question();
+			question.setQuestion(questionDto.getQuestion());
+			question.setPoints(questionDto.getPoints());
 
-		quizService.updatePointsToQuiz(questionDto.getQuizId(), questionDto.getPoints());
+			question.setQuiz(quizService.getQuizById(questionDto.getQuizId()));
+			question.setQuestionType(QuestionType.valueOf(questionDto.getQuestionType()));
 
-		return questionRepository.save(question);
+			quizService.updatePointsToQuiz(questionDto.getQuizId(), questionDto.getPoints());
+
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", questionRepository.save(question));
+			res.put("message", "Pitanje uspjesno dodato");
+
+			return ResponseEntity.ok(res);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Greska u kreiranju pitanja", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
-	public Question updateQuestion(Long questionId, QuestionDto questionDto) {
-		Question question = getQuestionById(questionId);
-		question.setQuestion(questionDto.getQuestion());
-		question.setPoints(questionDto.getPoints());
-		question.setQuestionType(QuestionType.valueOf(questionDto.getQuestionType()));
+	public ResponseEntity<?> updateQuestion(Long questionId, QuestionDto questionDto) {
+		try {
+			Question question = getQuestionById(questionId);
+			question.setQuestion(questionDto.getQuestion());
+			question.setPoints(questionDto.getPoints());
+			question.setQuestionType(QuestionType.valueOf(questionDto.getQuestionType()));
 
-		quizService.updatePointsToQuiz(question.getQuiz().getId(), questionDto.getPoints());
+			quizService.updatePointsToQuiz(question.getQuiz().getId(), questionDto.getPoints());
 
-		return questionRepository.save(question);
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", questionRepository.save(question));
+			res.put("message", "Pitanje uspjesno izmjenjeno");
+
+			return ResponseEntity.ok(res);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Greska u izmjeni pitanja", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 	public void deleteQuestion(Long questionId) {

@@ -3,6 +3,7 @@ package com.lms.eclassroomv2.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,13 +45,13 @@ public class QuestionController {
 
 	@PreAuthorize("hasRole ('TEACHER')")
 	@PostMapping
-	public Question addNewQuestion(@RequestBody QuestionDto questionDto) {
+	public ResponseEntity<?> addNewQuestion(@RequestBody QuestionDto questionDto) {
 		return questionService.addNewQuestion(questionDto);
 	}
 
 	@PreAuthorize("hasRole ('TEACHER')")
 	@PutMapping("/{questionId}")
-	public Question updateQuestion(@PathVariable Long questionId, @RequestBody QuestionDto questionDto) {
+	public ResponseEntity<?> updateQuestion(@PathVariable Long questionId, @RequestBody QuestionDto questionDto) {
 		return questionService.updateQuestion(questionId, questionDto);
 	}
 
