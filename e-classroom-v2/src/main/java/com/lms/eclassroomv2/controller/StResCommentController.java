@@ -3,6 +3,7 @@ package com.lms.eclassroomv2.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,7 @@ public class StResCommentController {
 
 	@PreAuthorize("hasRole('TEACHER') or hasRole('STUDENT')")
 	@PostMapping
-	public StudentResultComment addResComment(@RequestBody StudentResultCommentDto stResComDto) {
+	public ResponseEntity<?> addResComment(@RequestBody StudentResultCommentDto stResComDto) {
 		return stResCommentService.addNewResComment(stResComDto);
 	}
 	

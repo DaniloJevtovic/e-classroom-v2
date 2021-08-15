@@ -66,10 +66,15 @@ public class PostService {
 		try {
 			Post post = getPostById(postId);
 			post.setPost(postDto.getPost());
+			post.setDate(new Timestamp(new Date().getTime()));
 
 			postRepository.save(post);
 
-			return new ResponseEntity<>("Objave uspjesno izmjenjena", HttpStatus.OK);
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", postRepository.save(post));
+			res.put("message", "Post uspjesno izmjenjen");
+
+			return ResponseEntity.ok(res);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Greska u uzmjeni objave", HttpStatus.BAD_REQUEST);

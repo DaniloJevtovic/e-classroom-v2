@@ -52,7 +52,7 @@ public class PostController {
 
 	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
 	@DeleteMapping("/{postId}")
-	public void deletePost(@PathVariable Long postId) {
-		postService.deletePostById(postId);
+	public ResponseEntity<?> deletePost(@PathVariable Long postId) {
+		return postService.deletePostById(postId);
 	}
 }

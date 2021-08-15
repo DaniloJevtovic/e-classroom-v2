@@ -46,6 +46,7 @@ public class StudentParentService {
 	public ResponseEntity<?> saveStParent(StudentParent parent) {
 		StudentParent checkParent = getParentByEmail(parent.getEmail());
 
+		//provjeravam da li postoji taj roditelj u sistemu
 		if (checkParent != null) {
 			Map<String, Object> res = new HashMap<String, Object>();
 			res.put("body", checkParent);

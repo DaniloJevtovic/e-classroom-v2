@@ -45,13 +45,13 @@ public class QuizService {
 			quiz.setCourse(courseService.getCourseById(quizDto.getCourseId()));
 			quiz.setQuizStatus(QuizStatus.INACTIVE); // da ne bi odma ucenici mogli da ga rjesavaju kad se kreira kviz
 
-			//quizRepository.save(quiz);
-			//return new ResponseEntity<>("Kviz uspjesno kreiran", HttpStatus.CREATED);
+			// quizRepository.save(quiz);
+			// return new ResponseEntity<>("Kviz uspjesno kreiran", HttpStatus.CREATED);
 
 			Map<String, Object> res = new HashMap<String, Object>();
 			res.put("body", quizRepository.save(quiz));
 			res.put("message", "Kviz uspjesno kreiran");
-			
+
 			return ResponseEntity.ok(res);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,14 +60,24 @@ public class QuizService {
 
 	}
 
-	public Quiz updateQuiz(Long quizId, QuizDto quizDto) {
-		Quiz quiz = getQuizById(quizId);
-		quiz.setName(quizDto.getName());
-		quiz.setInstructions(quizDto.getInstructions());
-		quiz.setDuration(quizDto.getDuration());
-		quiz.setQuizStatus(QuizStatus.valueOf(quizDto.getQuizStatus()));
+	public ResponseEntity<?> updateQuiz(Long quizId, QuizDto quizDto) {
+		try {
+			Quiz quiz = getQuizById(quizId);
+			quiz.setName(quizDto.getName());
+			quiz.setInstructions(quizDto.getInstructions());
+			quiz.setDuration(quizDto.getDuration());
+			quiz.setQuizStatus(QuizStatus.valueOf(quizDto.getQuizStatus()));
 
-		return quizRepository.save(quiz);
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", quizRepository.save(quiz));
+			res.put("message", "Kviz uspjesno izmjenjen");
+
+			return ResponseEntity.ok(res);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Greska u kreiranju kviza", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 	// svaki put kada se doda novo pitanje i za njega definise broj poena poziva se

@@ -52,7 +52,7 @@ public class QuizController {
 
 	@PreAuthorize("hasRole ('TEACHER')")
 	@PutMapping("/{quizId}")
-	public Quiz updateQuiz(@PathVariable Long quizId, @RequestBody QuizDto quizDto) {
+	public ResponseEntity<?> updateQuiz(@PathVariable Long quizId, @RequestBody QuizDto quizDto) {
 		return quizService.updateQuiz(quizId, quizDto);
 	}
 

@@ -52,7 +52,6 @@ public class StudentQuizResultService {
 	}
 
 	public ResponseEntity<?> saveResult(StudentQuizResultDto stQuizResDto) {
-
 		try {
 			StudentQuizResult studentQuizResult = new StudentQuizResult();
 			studentQuizResult.setPoints(0);
@@ -68,7 +67,6 @@ public class StudentQuizResultService {
 			return ResponseEntity.ok(res);
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return new ResponseEntity<>("Nije moguce sacuvati rezultat", HttpStatus.BAD_REQUEST);
 		}

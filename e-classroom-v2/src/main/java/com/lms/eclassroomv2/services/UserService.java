@@ -22,6 +22,9 @@ public class UserService {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	CustomUserDetailsService customUserDetailsService;
 
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
@@ -48,6 +51,9 @@ public class UserService {
 
 		if (updateUserDto.getNewPassword() != null) {
 			user.setPassword(passwordEncoder.encode(updateUserDto.getNewPassword()));
+			
+			//treba pozvati change password iz custom user details service
+			//trebace ti i stara lozink
 		}
 
 		try {

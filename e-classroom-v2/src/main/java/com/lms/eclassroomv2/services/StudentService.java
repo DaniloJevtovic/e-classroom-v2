@@ -1,8 +1,12 @@
 package com.lms.eclassroomv2.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -62,20 +66,30 @@ public class StudentService {
 		return studentRepository.findByStParentId(parentId);
 	}
 
-	public Student addNewStudent(StudentDto studentDto) {
-		Student student = new Student();
-		student.setEmail(studentDto.getEmail());
-		student.setUsername(studentDto.getUsername());
-		student.setPassword(passwordEncoder.encode(studentDto.getPassword()));
-		student.setFirstName(studentDto.getFirstName());
-		student.setLastName(studentDto.getLastName());
-		student.setEnabled(true);
-		student.setStudentClass(stClassService.getStudentClassById(studentDto.getStClassId()));
-		student.setStParent(parentService.getStParentById(studentDto.getParentId()));
+	public ResponseEntity<?> addNewStudent(StudentDto studentDto) {
+		try {
+			Student student = new Student();
+			student.setEmail(studentDto.getEmail());
+			student.setUsername(studentDto.getUsername());
+			student.setPassword(passwordEncoder.encode(studentDto.getPassword()));
+			student.setFirstName(studentDto.getFirstName());
+			student.setLastName(studentDto.getLastName());
+			student.setEnabled(true);
+			student.setStudentClass(stClassService.getStudentClassById(studentDto.getStClassId()));
+			student.setStParent(parentService.getStParentById(studentDto.getParentId()));
 
-		List<Authority> authorities = authorityService.findByname("ROLE_STUDENT");
-		student.setAuthorities(authorities);
+			List<Authority> authorities = authorityService.findByname("ROLE_STUDENT");
+			student.setAuthorities(authorities);
 
-		return studentRepository.save(student);
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", studentRepository.save(student));
+			res.put("message", "Ucenik je uspjesno dodat u odjeljenje");
+
+			return ResponseEntity.ok(res);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Greska u dodavanju ucenika", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 }
