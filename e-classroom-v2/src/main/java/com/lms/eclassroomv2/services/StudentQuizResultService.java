@@ -80,5 +80,22 @@ public class StudentQuizResultService {
 		stQuizResult.setPoints(points);
 		return stQuizResultRepository.save(stQuizResult);
 	}
+	
+	//za poziv rest-a
+	public ResponseEntity<?> updateResPointsRest(Long resId, int points) {
+		try {
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", updateResult(resId, points));
+			res.put("message", "Rezultat izmjenjen");
+
+			return ResponseEntity.ok(res);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Nije moguce izmjeniti rezultat", HttpStatus.BAD_REQUEST);
+		}
+		
+		
+	}
 
 }
