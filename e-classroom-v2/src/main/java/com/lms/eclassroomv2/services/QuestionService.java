@@ -84,8 +84,17 @@ public class QuestionService {
 
 	}
 
-	public void deleteQuestion(Long questionId) {
-		answerService.deleteAllAnswersForQuestion(questionId);
-		questionRepository.deleteById(questionId);
+	public ResponseEntity<?> deleteQuestion(Long questionId) {
+		try {
+			answerService.deleteAllAnswersForQuestion(questionId);
+			questionRepository.deleteById(questionId);
+			
+			return ResponseEntity.ok("Pitanje uspjesno obrisano");
+		} catch (Exception e) {	
+			e.printStackTrace();
+			return new ResponseEntity<>("Greska u brisanju pitanja", HttpStatus.BAD_REQUEST);
+		}
+		
+		
 	}
 }

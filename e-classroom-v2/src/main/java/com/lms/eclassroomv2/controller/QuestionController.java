@@ -57,7 +57,7 @@ public class QuestionController {
 
 	@PreAuthorize("hasRole ('TEACHER')")
 	@DeleteMapping("/{questionId}")
-	public void deleteQuestion(@PathVariable Long questionId) {
-		questionService.deleteQuestion(questionId);
+	public ResponseEntity<?> deleteQuestion(@PathVariable Long questionId) {
+		return questionService.deleteQuestion(questionId);
 	}
 }
