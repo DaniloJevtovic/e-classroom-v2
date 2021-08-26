@@ -1,8 +1,12 @@
 package com.lms.eclassroomv2.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.lms.eclassroomv2.model.Answer;
@@ -49,25 +53,36 @@ public class StudentQuizAnswerService {
 		return stQuizAnswerRepository.findByStudentQuizResultIdAndQuestionId(stQuizResId, questionId);
 	}
 
-	public StudentQuizAnswer saveAnswer(StudentQuizAnswerDto stQuizAnsDto) {
-		StudentQuizAnswer stQuizAnswer = new StudentQuizAnswer();
-		stQuizAnswer.setStudentQuizResult(studentQuizResultService.getStQuizResById(stQuizAnsDto.getStQuizResId()));
-		stQuizAnswer.setQuestion(questionService.getQuestionById(stQuizAnsDto.getQuestionId()));
-		stQuizAnswer.setAnswer(answerService.getAnswerById(stQuizAnsDto.getAnswerId()));
+	public ResponseEntity<?> saveAnswer(StudentQuizAnswerDto stQuizAnsDto) {
 
-		// update poena
-		updatePointsToResultSelect(stQuizAnsDto.getStQuizResId(),
-				answerService.getAnswerById(stQuizAnsDto.getAnswerId()));
+		try {
+			StudentQuizAnswer stQuizAnswer = new StudentQuizAnswer();
+			stQuizAnswer.setStudentQuizResult(studentQuizResultService.getStQuizResById(stQuizAnsDto.getStQuizResId()));
+			stQuizAnswer.setQuestion(questionService.getQuestionById(stQuizAnsDto.getQuestionId()));
+			stQuizAnswer.setAnswer(answerService.getAnswerById(stQuizAnsDto.getAnswerId()));
 
-		return stQuizAnswerRepository.save(stQuizAnswer);
+			// update poena
+			updatePointsToResultSelect(stQuizAnsDto.getStQuizResId(),
+					answerService.getAnswerById(stQuizAnsDto.getAnswerId()));
+
+			Map<String, Object> res = new HashMap<String, Object>();
+			res.put("body", stQuizAnswerRepository.save(stQuizAnswer));
+			res.put("message", "Odgovor uspjesno sacuvan");
+
+			return ResponseEntity.ok(res);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Greska u cuvanju odgovora", HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 	public void deleteAnswer(Long stResId, Long ansId) {
 		StudentQuizAnswer studentQuizAnswer = getStQuizAnswerByResultIdAndAnswerId(stResId, ansId);
-		//Answer answer = studentQuizAnswer.getAnswer();
+		// Answer answer = studentQuizAnswer.getAnswer();
 
 		Answer answer = answerService.getAnswerById(ansId);
-		
+
 		updatePointsToResultDeselct(stResId, answer);
 
 		stQuizAnswerRepository.deleteById(studentQuizAnswer.getId());
