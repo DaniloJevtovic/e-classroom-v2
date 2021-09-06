@@ -3,6 +3,9 @@ package com.lms.eclassroomv2.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +30,12 @@ public class UserController {
 	@GetMapping()
 	public List<User> getAllUsers() {
 		return userService.getAllUsers();
+	}
+
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT') or hasRole('PARENT')")
+	@GetMapping("/page")
+	public Page<User> getAllUsersPage(@PageableDefault(size = 10) Pageable pageable) {
+		return userService.getAllUsersPage(pageable);
 	}
 
 	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT') or hasRole('PARENT')")
