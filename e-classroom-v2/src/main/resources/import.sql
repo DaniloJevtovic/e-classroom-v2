@@ -24,7 +24,7 @@ INSERT INTO users (role, username, password, first_name, last_name, email, enabl
 --jos profesora (id: 11-13)
 INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date, subjects) VALUES ('teacher', 'profInf', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Profesor', 'Informatike', 'prof_inf@gmail.com', true, '2021-08-25 11:23:18', 'inf, prog, db');
 INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date, subjects) VALUES ('teacher', 'profEng', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Profesor', 'Engleskog', 'prof_eng@gmail.com', true, '2021-08-23 19:12:42', 'eng');
-INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date, subjects) VALUES ('teacher', 'profSrp', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Profesor', 'Biologije', 'prof_bio@gmail.com', true, '2021-08-14 13:12:53', 'bio, zoo');
+INSERT INTO users (role, username, password, first_name, last_name, email, enabled, last_password_reset_date, subjects) VALUES ('teacher', 'profBio', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Profesor', 'Biologije', 'prof_bio@gmail.com', true, '2021-08-14 13:12:53', 'bio, zoo');
 
 --dodjela uloga
 INSERT INTO user_authority (user_id, authority_id) VALUES (1, 1);
