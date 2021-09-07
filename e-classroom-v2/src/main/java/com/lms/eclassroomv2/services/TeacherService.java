@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,6 +35,10 @@ public class TeacherService {
 
 	public List<Teacher> getAllTeachers() {
 		return teacherRepository.findAll();
+	}
+	
+	public Page<Teacher> getAllTeachersPagination(Pageable pageable) {
+		return teacherRepository.findAll(pageable);
 	}
 
 	public Teacher getTeacherById(Long teacherId) {

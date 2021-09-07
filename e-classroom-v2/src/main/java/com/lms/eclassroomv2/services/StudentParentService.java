@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,6 +32,10 @@ public class StudentParentService {
 		return stParentRepository.findAll();
 	}
 
+	public Page<StudentParent> getAllParentsPagination(Pageable pageable) {
+		return stParentRepository.findAll(pageable);
+	}
+
 	public StudentParent getStParentById(Long stParentId) {
 		return stParentRepository.findById(stParentId).orElse(null);
 	}
@@ -46,7 +52,7 @@ public class StudentParentService {
 	public ResponseEntity<?> saveStParent(StudentParent parent) {
 		StudentParent checkParent = getParentByEmail(parent.getEmail());
 
-		//provjeravam da li postoji taj roditelj u sistemu
+		// provjeravam da li postoji taj roditelj u sistemu
 		if (checkParent != null) {
 			Map<String, Object> res = new HashMap<String, Object>();
 			res.put("body", checkParent);
