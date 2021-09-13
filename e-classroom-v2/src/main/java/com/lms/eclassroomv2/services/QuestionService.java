@@ -66,10 +66,13 @@ public class QuestionService {
 		try {
 			Question question = getQuestionById(questionId);
 			question.setQuestion(questionDto.getQuestion());
+
+			// oduzmem od starih poena nove i te poene dodam ukupnom broju poena
+			quizService.updatePointsToQuiz(question.getQuiz().getId(),
+					(question.getPoints() - questionDto.getPoints()));
+
 			question.setPoints(questionDto.getPoints());
 			question.setQuestionType(QuestionType.valueOf(questionDto.getQuestionType()));
-
-			quizService.updatePointsToQuiz(question.getQuiz().getId(), questionDto.getPoints());
 
 			Map<String, Object> res = new HashMap<String, Object>();
 			res.put("body", questionRepository.save(question));
@@ -88,13 +91,12 @@ public class QuestionService {
 		try {
 			answerService.deleteAllAnswersForQuestion(questionId);
 			questionRepository.deleteById(questionId);
-			
+
 			return ResponseEntity.ok("Pitanje uspjesno obrisano");
-		} catch (Exception e) {	
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Greska u brisanju pitanja", HttpStatus.BAD_REQUEST);
 		}
-		
-		
+
 	}
 }
