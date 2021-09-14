@@ -36,7 +36,7 @@ INSERT INTO user_authority (user_id, authority_id) VALUES (6, 3);
 INSERT INTO user_authority (user_id, authority_id) VALUES (7, 3);
 INSERT INTO user_authority (user_id, authority_id) VALUES (8, 4);
 INSERT INTO user_authority (user_id, authority_id) VALUES (9, 4);
-INSERT INTO user_authority (user_id, authority_id) VALUES (10, 2);
+INSERT INTO user_authority (user_id, authority_id) VALUES (10, 4);
 INSERT INTO user_authority (user_id, authority_id) VALUES (11, 2);
 INSERT INTO user_authority (user_id, authority_id) VALUES (12, 2);
 INSERT INTO user_authority (user_id, authority_id) VALUES (13, 2);
