@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.lms.eclassroomv2.model.Question;
 import com.lms.eclassroomv2.model.QuestionType;
+import com.lms.eclassroomv2.model.Quiz;
 import com.lms.eclassroomv2.model.dto.QuestionDto;
 import com.lms.eclassroomv2.repository.QuestionRepository;
 
@@ -42,12 +43,15 @@ public class QuestionService {
 		try {
 			Question question = new Question();
 			question.setQuestion(questionDto.getQuestion());
+
 			question.setPoints(questionDto.getPoints());
 
-			question.setQuiz(quizService.getQuizById(questionDto.getQuizId()));
+			Quiz quiz = quizService.getQuizById(questionDto.getQuizId());
+
+			question.setQuiz(quiz);
 			question.setQuestionType(QuestionType.valueOf(questionDto.getQuestionType()));
 
-			quizService.updatePointsToQuiz(questionDto.getQuizId(), questionDto.getPoints());
+			quizService.updatePointsToQuiz(quiz.getId(), 0, questionDto.getPoints());
 
 			Map<String, Object> res = new HashMap<String, Object>();
 			res.put("body", questionRepository.save(question));
@@ -67,9 +71,8 @@ public class QuestionService {
 			Question question = getQuestionById(questionId);
 			question.setQuestion(questionDto.getQuestion());
 
-			// oduzmem od starih poena nove i te poene dodam ukupnom broju poena
-			quizService.updatePointsToQuiz(question.getQuiz().getId(),
-					(question.getPoints() - questionDto.getPoints()));
+			// ako je broj poena na pitanju 0
+			quizService.updatePointsToQuiz(question.getQuiz().getId(), question.getPoints(), questionDto.getPoints());
 
 			question.setPoints(questionDto.getPoints());
 			question.setQuestionType(QuestionType.valueOf(questionDto.getQuestionType()));
@@ -90,6 +93,11 @@ public class QuestionService {
 	public ResponseEntity<?> deleteQuestion(Long questionId) {
 		try {
 			answerService.deleteAllAnswersForQuestion(questionId);
+
+			Question question = getQuestionById(questionId);
+
+			quizService.updatePointsToQuiz(question.getQuiz().getId(), question.getPoints(), 0);
+
 			questionRepository.deleteById(questionId);
 
 			return ResponseEntity.ok("Pitanje uspjesno obrisano");

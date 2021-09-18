@@ -80,13 +80,11 @@ public class QuizService {
 
 	}
 
-	// svaki put kada se doda novo pitanje i za njega definise broj poena poziva se
-	// ova metoda
-	// koja azurira broj poena u kvizu
-	public Quiz updatePointsToQuiz(Long quizId, int points) {
+	// ideja - svaki put kad se azurira broj poena u pitanju prvo se oduzmu stari poeni (od pitanja)
+	// a dodaju novi poeni pitanja
+	public Quiz updatePointsToQuiz(Long quizId, int oldPoints, int newPoints) {
 		Quiz quiz = getQuizById(quizId);
-		int oldPoints = quiz.getTotalPoints();
-		quiz.setTotalPoints(oldPoints + points);
+		quiz.setTotalPoints(quiz.getTotalPoints() - oldPoints + newPoints);
 		return quizRepository.save(quiz);
 	}
 
