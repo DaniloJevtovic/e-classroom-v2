@@ -41,7 +41,14 @@ public class StudentQuizResultController {
 	public StudentQuizResult getResultForStudentAndQuiz(@PathVariable Long studentId, @PathVariable Long quizId) {
 		return stQuizResultService.getResultForStudentAndQuiz(studentId, quizId);
 	}
-	
+
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT') or hasRole('PARENT')")
+	@GetMapping(value = "/course/{courseId}/student/{studentId}")
+	public List<StudentQuizResult> getResultForCourseAndQUiz(@PathVariable Long courseId,
+			@PathVariable Long studentId) {
+		return stQuizResultService.getAllResultsForCourseAndStudent(courseId, studentId);
+	}
+
 	@PreAuthorize("hasRole('TEACHER')")
 	@GetMapping(value = "/quiz/{quizId}")
 	public List<StudentQuizResult> getAllResultForQuiz(@PathVariable Long quizId) {
@@ -53,12 +60,11 @@ public class StudentQuizResultController {
 	public ResponseEntity<?> createStudentQuizResult(@RequestBody StudentQuizResultDto stQuizResDto) {
 		return stQuizResultService.saveResult(stQuizResDto);
 	}
-	
+
 	@PreAuthorize("hasRole ('TEACHER')")
 	@PutMapping("/updatePoints/{resId}")
 	public ResponseEntity<?> updateResPoints(@PathVariable Long resId, @RequestBody int points) {
 		return stQuizResultService.updateResPointsRest(resId, points);
 	}
-	
-	
+
 }

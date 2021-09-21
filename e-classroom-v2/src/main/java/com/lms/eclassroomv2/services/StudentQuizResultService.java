@@ -50,6 +50,11 @@ public class StudentQuizResultService {
 	public List<StudentQuizResult> getAllResultsForQuiz(Long quizId) {
 		return stQuizResultRepository.findByQuizId(quizId);
 	}
+	
+	// rezultati ucenika za odredjeni predmet
+	public List<StudentQuizResult> getAllResultsForCourseAndStudent(Long courseId, Long studentId) {
+		return stQuizResultRepository.findByQuizCourseIdAndStudentId(courseId, studentId);
+	}
 
 	public ResponseEntity<?> saveResult(StudentQuizResultDto stQuizResDto) {
 		try {
