@@ -1,5 +1,6 @@
 package com.lms.eclassroomv2.services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.lms.eclassroomv2.model.Quiz;
 import com.lms.eclassroomv2.model.QuizStatus;
+import com.lms.eclassroomv2.model.StudentQuizResult;
 import com.lms.eclassroomv2.model.dto.QuizDto;
 import com.lms.eclassroomv2.repository.QuizRepository;
 
@@ -23,6 +25,9 @@ public class QuizService {
 	@Autowired
 	CourseService courseService;
 
+	@Autowired
+	StudentQuizResultService stQuizResultService;
+
 	public List<Quiz> getAllQuizzes() {
 		return quizRepository.findAll();
 	}
@@ -33,6 +38,34 @@ public class QuizService {
 
 	public List<Quiz> getQuizzesForCourse(Long courseId) {
 		return quizRepository.findByCourseId(courseId);
+	}
+
+	// svi kvizovi za predmet koje ucenik NIJE rjesavao
+	// mozes da dodas i samo aktivne kvizove po potrebi
+	public List<Quiz> getCoursQuizzesStudNotSolve(Long courseId, Long studentId) {
+
+		// lista svih kvizova za predmet
+		List<Quiz> courseQuizzes = getQuizzesForCourse(courseId);
+
+		// lista svih rezultata za ucenika za odredjeni predmet
+		List<StudentQuizResult> stResForCourse = stQuizResultService.getAllResultsForCourseAndStudent(courseId,
+				studentId);
+
+		// nova lista kvizova za rezultate
+		List<Quiz> listQuizzesForRes = new ArrayList<Quiz>();
+
+		//prolazim kroz listu rezultata i izvlacim kvizove iz nje
+		for (StudentQuizResult studentQuizResult : stResForCourse) {
+			listQuizzesForRes.add(studentQuizResult.getQuiz());
+		}
+
+		// prazna list u koju dodajem kvizove koje ucenik NIJE rjesavao
+		List<Quiz> notSolvedQuizzes = new ArrayList<>(courseQuizzes);
+
+		notSolvedQuizzes.removeAll(listQuizzesForRes);
+
+		return notSolvedQuizzes;
+
 	}
 
 	public ResponseEntity<?> newQuiz(QuizDto quizDto) {
@@ -80,7 +113,8 @@ public class QuizService {
 
 	}
 
-	// ideja - svaki put kad se azurira broj poena u pitanju prvo se oduzmu stari poeni (od pitanja)
+	// ideja - svaki put kad se azurira broj poena u pitanju prvo se oduzmu stari
+	// poeni (od pitanja)
 	// a dodaju novi poeni pitanja
 	public Quiz updatePointsToQuiz(Long quizId, int oldPoints, int newPoints) {
 		Quiz quiz = getQuizById(quizId);
