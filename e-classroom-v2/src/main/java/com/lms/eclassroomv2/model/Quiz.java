@@ -32,6 +32,9 @@ public class Quiz {
 	
 	@Column(name = "total_points")
 	private int totalPoints;
+	
+	@Column(name = "questons_numb")
+	private int numbOfQuestions;
 
 	/**
 	 * dateFrom i dateTo je period u kojem ce moci da se radi kviz - npr. u pon od
@@ -126,6 +129,14 @@ public class Quiz {
 
 	public void setTotalPoints(int totalPoints) {
 		this.totalPoints = totalPoints;
+	}
+
+	public int getNumbOfQuestions() {
+		return numbOfQuestions;
+	}
+
+	public void setNumbOfQuestions(int numbOfQuestions) {
+		this.numbOfQuestions = numbOfQuestions;
 	}
 
 }
