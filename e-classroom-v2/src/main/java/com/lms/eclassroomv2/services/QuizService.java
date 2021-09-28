@@ -116,9 +116,10 @@ public class QuizService {
 	// ideja - svaki put kad se azurira broj poena u pitanju prvo se oduzmu stari
 	// poeni (od pitanja)
 	// a dodaju novi poeni pitanja
-	public Quiz updatePointsToQuiz(Long quizId, int oldPoints, int newPoints) {
+	public Quiz updatePointsToQuizAndQuestNum(Long quizId, int oldPoints, int newPoints, int questionsNumb) {
 		Quiz quiz = getQuizById(quizId);
 		quiz.setTotalPoints(quiz.getTotalPoints() - oldPoints + newPoints);
+		quiz.setNumbOfQuestions(quiz.getNumbOfQuestions() + questionsNumb);
 		return quizRepository.save(quiz);
 	}
 
