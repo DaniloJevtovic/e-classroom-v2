@@ -43,6 +43,13 @@ public class QuizController {
 	public List<Quiz> getAllQuizzesForCourse(@PathVariable Long courseId) {
 		return quizService.getQuizzesForCourse(courseId);
 	}
+	
+	// kvizovi za predmet koje ucenik nije rjesavao
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
+	@GetMapping(value = "/course/{courseId}/studNotSolved/{studentId}")
+	public List<Quiz> getCourseQuizzesNotSolved(@PathVariable Long courseId, @PathVariable Long studentId) {
+		return quizService.getCoursQuizzesStudNotSolve(courseId, studentId);
+	}
 
 	@PreAuthorize("hasRole ('TEACHER')")
 	@PostMapping
