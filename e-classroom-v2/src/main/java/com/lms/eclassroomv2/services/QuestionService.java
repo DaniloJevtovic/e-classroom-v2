@@ -51,7 +51,7 @@ public class QuestionService {
 			question.setQuiz(quiz);
 			question.setQuestionType(QuestionType.valueOf(questionDto.getQuestionType()));
 
-			quizService.updatePointsToQuiz(quiz.getId(), 0, questionDto.getPoints());
+			quizService.updatePointsToQuizAndQuestNum(quiz.getId(), 0, questionDto.getPoints(), 1);
 
 			Map<String, Object> res = new HashMap<String, Object>();
 			res.put("body", questionRepository.save(question));
@@ -72,7 +72,9 @@ public class QuestionService {
 			question.setQuestion(questionDto.getQuestion());
 
 			// ako je broj poena na pitanju 0
-			quizService.updatePointsToQuiz(question.getQuiz().getId(), question.getPoints(), questionDto.getPoints());
+			// 0 dodavanja/oduzimanja broja pitanja
+			quizService.updatePointsToQuizAndQuestNum(question.getQuiz().getId(), question.getPoints(),
+					questionDto.getPoints(), 0);
 
 			question.setPoints(questionDto.getPoints());
 			question.setQuestionType(QuestionType.valueOf(questionDto.getQuestionType()));
@@ -96,7 +98,9 @@ public class QuestionService {
 
 			Question question = getQuestionById(questionId);
 
-			quizService.updatePointsToQuiz(question.getQuiz().getId(), question.getPoints(), 0);
+			// 0 novih poena
+			// -1 jer se brise jedno pitanje od ukupnog broja pitanja
+			quizService.updatePointsToQuizAndQuestNum(question.getQuiz().getId(), question.getPoints(), 0, -1);
 
 			questionRepository.deleteById(questionId);
 
