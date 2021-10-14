@@ -42,14 +42,24 @@ public class CourseService {
 		return courseRepository.findById(courseId).orElse(null);
 	}
 
-	// svi predmeti koje profesor predaje
+	// svi predmeti koje profesor predaje (i obrisani)
 	public List<Course> getAllCoursesForTeacher(Long teacherId) {
 		return courseRepository.findByTeacherId(teacherId);
 	}
 
-	// svi predmeti za razred
+	// svi predmeti koje profesor predaje i koji NISU obrisani (AKTIVNI)
+	public List<Course> getAllActiveCoursesForTeacher(Long teacherId) {
+		return courseRepository.findByTeacherIdAndDeletedFalse(teacherId);
+	}
+
+	// svi predmeti za razred i obrisani
 	public List<Course> getAllCoursesForSchoolClass(Long scClassId) {
 		return courseRepository.findBySchoolClassId(scClassId);
+	}
+
+	// svi aktivni predmeti za razred
+	public List<Course> getAllActiveCoursesForSchoolClass(Long scClassId) {
+		return courseRepository.findBySchoolClassIdAndDeletedFalse(scClassId);
 	}
 
 	// predmeti za odjeljenje - moz i za ucenike - iz ucenika izvuces id odjeljenja
@@ -59,6 +69,14 @@ public class CourseService {
 		// pronadjem sve kurseve
 		Long scClassId = studentClassService.getStudentClassById(stClassId).getSchoolClass().getId();
 		return getAllCoursesForSchoolClass(scClassId);
+	}
+
+	// AKTIVNI PREDMETI za odjeljneje - ucenik
+	public List<Course> getActiveCoursesForStudentClass(Long stClassId) {
+		// pronadjem id razreda kojem odjeljenje pripada i onda za taj id razreda
+		// pronadjem sve kurseve
+		Long scClassId = studentClassService.getStudentClassById(stClassId).getSchoolClass().getId();
+		return getAllActiveCoursesForSchoolClass(scClassId);
 	}
 
 	public ResponseEntity<?> addCourse(CourseDto courseDto) {
