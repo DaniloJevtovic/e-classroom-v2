@@ -96,6 +96,7 @@ public class CourseService {
 			course.setDescription(courseDto.getDescription());
 			course.setTeacher(teacherService.getTeacherById(courseDto.getTeacherId()));
 			course.setSchoolClass(schoolClassService.getSchoolClassById(courseDto.getSchoolClassId()));
+			course.setDeleted(courseDto.isDeleted());
 
 			// courseRepository.save(course);
 			// return new ResponseEntity<>("Predmet uspjesno azuriran", HttpStatus.OK);
