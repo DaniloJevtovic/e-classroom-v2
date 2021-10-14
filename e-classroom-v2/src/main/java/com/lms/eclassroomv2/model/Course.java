@@ -24,7 +24,7 @@ public class Course {
 	private String description;
 
 	@Column(name = "is_deleted")
-	private boolean isDeleted;
+	private boolean deleted;
 
 	@ManyToOne
 	Teacher teacher;
@@ -68,20 +68,20 @@ public class Course {
 		this.teacher = teacher;
 	}
 
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-
 	public SchoolClass getSchoolClass() {
 		return schoolClass;
 	}
 
 	public void setSchoolClass(SchoolClass schoolClass) {
 		this.schoolClass = schoolClass;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 }
