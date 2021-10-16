@@ -53,6 +53,9 @@ public class QuestionService {
 
 			quizService.updatePointsToQuizAndQuestNum(quiz.getId(), 0, questionDto.getPoints(), 1);
 
+			// inicijalno broj odgovora za pitanje kada se kreira je 0
+			question.setNumOfAns(0);
+
 			Map<String, Object> res = new HashMap<String, Object>();
 			res.put("body", questionRepository.save(question));
 			res.put("message", "Pitanje uspjesno dodato");
@@ -110,5 +113,14 @@ public class QuestionService {
 			return new ResponseEntity<>("Greska u brisanju pitanja", HttpStatus.BAD_REQUEST);
 		}
 
+	}
+
+	// metoda koja azurira broj odgovora za pitanje
+	public void updateNumOfAnsOfQuestion(Long questionId, int num) {
+		Question question = getQuestionById(questionId);
+
+		question.setNumOfAns(question.getNumOfAns() + num);
+
+		questionRepository.save(question);
 	}
 }

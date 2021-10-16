@@ -24,6 +24,10 @@ public class Question {
 
 	@Column(name = "points")
 	private int points;
+	
+	// broj odgovora za pitanja
+	@Column(name = "num_of_ans")
+	private int numOfAns;
 
 	@Column(name = "question_type")
 	@Enumerated(EnumType.ORDINAL)
@@ -74,6 +78,14 @@ public class Question {
 
 	public void setQuestionType(QuestionType questionType) {
 		this.questionType = questionType;
+	}
+
+	public int getNumOfAns() {
+		return numOfAns;
+	}
+
+	public void setNumOfAns(int numOfAns) {
+		this.numOfAns = numOfAns;
 	}
 
 }
