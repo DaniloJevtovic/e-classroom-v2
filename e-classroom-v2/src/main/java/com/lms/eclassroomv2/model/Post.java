@@ -34,6 +34,9 @@ public class Post {
 	@OneToOne
 	User author;
 
+	@Column(name = "is_edited")
+	private boolean edited;
+
 	public Post() {
 
 	}
@@ -76,6 +79,14 @@ public class Post {
 
 	public void setDate(Timestamp date) {
 		this.date = date;
+	}
+
+	public boolean isEdited() {
+		return edited;
+	}
+
+	public void setEdited(boolean edited) {
+		this.edited = edited;
 	}
 
 }

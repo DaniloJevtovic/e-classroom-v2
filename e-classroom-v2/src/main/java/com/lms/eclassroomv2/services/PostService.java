@@ -47,7 +47,8 @@ public class PostService {
 			post.setCourse(courseService.getCourseById(postDto.getCourseId()));
 			post.setAuthor(userService.getUserById(postDto.getAuthorId()));
 			post.setDate(new Timestamp(new Date().getTime()));
-
+			post.setEdited(false);
+			
 			/// return ResponseEntity.ok(postRepository.save(post));
 
 			Map<String, Object> res = new HashMap<String, Object>();
@@ -67,6 +68,7 @@ public class PostService {
 			Post post = getPostById(postId);
 			post.setPost(postDto.getPost());
 			post.setDate(new Timestamp(new Date().getTime()));
+			post.setEdited(true);
 
 			postRepository.save(post);
 
