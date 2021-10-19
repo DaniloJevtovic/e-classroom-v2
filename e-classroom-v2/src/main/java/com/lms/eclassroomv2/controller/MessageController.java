@@ -3,6 +3,9 @@ package com.lms.eclassroomv2.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,7 +32,7 @@ public class MessageController {
 	public Message getMessageById(@PathVariable Long messageId) {
 		return messageService.getMessageById(messageId);
 	}
-	
+
 	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT') or hasRole('PARENT')")
 	@GetMapping(value = "/seen/{messageId}")
 	public Message getMessageByIdAndSee(@PathVariable Long messageId) {
@@ -42,10 +45,25 @@ public class MessageController {
 		return messageService.getRecivedMessages(reciverId);
 	}
 
+	// primljenje poruke sa paginacopm
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT') or hasRole('PARENT')")
+	@GetMapping(value = "/recived/page/{reciverId}")
+	public Page<Message> getRecivedMessagesPage(@PathVariable Long reciverId,
+			@PageableDefault(size = 10) Pageable pageable) {
+		return messageService.getRecivedMessagesPage(reciverId, pageable);
+	}
+
 	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')  or hasRole('PARENT')")
 	@GetMapping(value = "/sent/{senderId}")
 	public List<Message> getSendedMessages(@PathVariable Long senderId) {
 		return messageService.getSendedMessages(senderId);
+	}
+	
+	// poslate poruke sa paginacijom
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')  or hasRole('PARENT')")
+	@GetMapping(value = "/sent/page/{senderId}")
+	public Page<Message> getSendedMessagesPage(@PathVariable Long senderId, @PageableDefault(size = 10) Pageable pageable) {
+		return messageService.getSendedMessagesPage(senderId, pageable);
 	}
 
 	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')  or hasRole('PARENT')")
