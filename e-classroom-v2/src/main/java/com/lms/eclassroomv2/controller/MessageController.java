@@ -29,6 +29,12 @@ public class MessageController {
 	public Message getMessageById(@PathVariable Long messageId) {
 		return messageService.getMessageById(messageId);
 	}
+	
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT') or hasRole('PARENT')")
+	@GetMapping(value = "/seen/{messageId}")
+	public Message getMessageByIdAndSee(@PathVariable Long messageId) {
+		return messageService.getMessageByIdAndSetSeen(messageId);
+	}
 
 	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT') or hasRole('PARENT')")
 	@GetMapping(value = "/recived/{reciverId}")

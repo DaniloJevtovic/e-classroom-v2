@@ -28,6 +28,9 @@ public class Message {
 	@Column(name = "mess_date")
 	@JsonFormat(pattern = "dd.MM.yyyy / HH:mm:ss", timezone = "Europe/Belgrade")
 	private Timestamp date;
+	
+	// da li je poruka procitana od strane primaoca
+	private boolean seen;
 
 	@OneToOne
 	User sender;
@@ -85,6 +88,14 @@ public class Message {
 
 	public void setDate(Timestamp date) {
 		this.date = date;
+	}
+
+	public boolean isSeen() {
+		return seen;
+	}
+
+	public void setSeen(boolean seen) {
+		this.seen = seen;
 	}
 
 }

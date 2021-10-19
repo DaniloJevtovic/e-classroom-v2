@@ -28,13 +28,21 @@ public class MessageService {
 		return messageRepository.findById(messageId).orElse(null);
 	}
 
+	// dobavljanje poruke i oznacavanje poruke kao procitane 
+	public Message getMessageByIdAndSetSeen(Long messageId) {
+		Message message = messageRepository.findById(messageId).orElse(null);
+		message.setSeen(true);
+
+		return messageRepository.save(message);
+	}
+
 	public List<Message> getRecivedMessages(Long reciverId) {
-		//return messageRepository.findByReciverId(reciverId);
+		// return messageRepository.findByReciverId(reciverId);
 		return messageRepository.findByReciverIdOrderByDateDesc(reciverId);
 	}
 
 	public List<Message> getSendedMessages(Long senderId) {
-		//return messageRepository.findBySenderId(senderId);
+		// return messageRepository.findBySenderId(senderId);
 		return messageRepository.findBySenderIdOrderByDateDesc(senderId);
 	}
 
@@ -47,15 +55,16 @@ public class MessageService {
 			message.setSender(userService.getUserById(messageDto.getSenderId()));
 			message.setReciver(userService.getUserById(messageDto.getReciverId()));
 			message.setDate(new Timestamp(new Date().getTime()));
+			message.setSeen(false);
 
-			//messageRepository.save(message);
+			// messageRepository.save(message);
 
-			//return new ResponseEntity<>("Poruka uspjesno poslata", HttpStatus.OK);
-			
+			// return new ResponseEntity<>("Poruka uspjesno poslata", HttpStatus.OK);
+
 			Map<String, Object> res = new HashMap<String, Object>();
 			res.put("body", messageRepository.save(message));
 			res.put("message", "Poruka uspjesno poslata");
-			
+
 			return ResponseEntity.ok(res);
 		} catch (Exception e) {
 			// TODO: handle exception
