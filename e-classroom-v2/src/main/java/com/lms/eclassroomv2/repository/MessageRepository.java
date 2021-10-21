@@ -16,7 +16,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 	List<Message> findBySenderId(Long senderId);
 
 	List<Message> findBySenderIdOrderByDateDesc(Long senderId);
-	
+
 	// lista poslatih poruka sa paginacijom
 	Page<Message> findBySenderIdOrderByDateDesc(Long senderId, Pageable pageable);
 
@@ -27,4 +27,6 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 	// lista svih poruka za primaoca sa paginacijom
 	Page<Message> findByReciverIdOrderByDateDesc(Long reciverId, Pageable pageable);
 
+	// lista svih neprocitanih poruka za primaoca sa paginacijom
+	Page<Message> findByReciverIdAndSeenFalseOrderByDateDesc(Long reciverId, Pageable pageable);
 }

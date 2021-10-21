@@ -53,16 +53,25 @@ public class MessageController {
 		return messageService.getRecivedMessagesPage(reciverId, pageable);
 	}
 
+	// primljenje neprocitanje poruke sa paginacopm
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT') or hasRole('PARENT')")
+	@GetMapping(value = "/unread/recived/page/{reciverId}")
+	public Page<Message> getUnreadRecivedMessagesPage(@PathVariable Long reciverId,
+			@PageableDefault(size = 10) Pageable pageable) {
+		return messageService.getUnreadRecMessagesPage(reciverId, pageable);
+	}
+
 	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')  or hasRole('PARENT')")
 	@GetMapping(value = "/sent/{senderId}")
 	public List<Message> getSendedMessages(@PathVariable Long senderId) {
 		return messageService.getSendedMessages(senderId);
 	}
-	
+
 	// poslate poruke sa paginacijom
 	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')  or hasRole('PARENT')")
 	@GetMapping(value = "/sent/page/{senderId}")
-	public Page<Message> getSendedMessagesPage(@PathVariable Long senderId, @PageableDefault(size = 10) Pageable pageable) {
+	public Page<Message> getSendedMessagesPage(@PathVariable Long senderId,
+			@PageableDefault(size = 10) Pageable pageable) {
 		return messageService.getSendedMessagesPage(senderId, pageable);
 	}
 

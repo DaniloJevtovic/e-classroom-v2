@@ -48,6 +48,11 @@ public class MessageService {
 		return messageRepository.findByReciverIdOrderByDateDesc(reciverId, pageable);
 	}
 
+	// neprocitanje poruke sa paginacom
+	public Page<Message> getUnreadRecMessagesPage(Long reciverId, Pageable pageable) {
+		return messageRepository.findByReciverIdAndSeenFalseOrderByDateDesc(reciverId, pageable);
+	}
+
 	public List<Message> getSendedMessages(Long senderId) {
 		// return messageRepository.findBySenderId(senderId);
 		return messageRepository.findBySenderIdOrderByDateDesc(senderId);
