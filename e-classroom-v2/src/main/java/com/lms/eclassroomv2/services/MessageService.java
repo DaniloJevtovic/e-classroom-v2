@@ -52,6 +52,11 @@ public class MessageService {
 	public Page<Message> getUnreadRecMessagesPage(Long reciverId, Pageable pageable) {
 		return messageRepository.findByReciverIdAndSeenFalseOrderByDateDesc(reciverId, pageable);
 	}
+	
+	// vraca broj neprocitanih poruka za korisnika	
+	public Long getCountOfUnreadMessages(Long reciverId) {
+		return messageRepository.countByReciverIdAndSeenFalse(reciverId);
+	}
 
 	public List<Message> getSendedMessages(Long senderId) {
 		// return messageRepository.findBySenderId(senderId);

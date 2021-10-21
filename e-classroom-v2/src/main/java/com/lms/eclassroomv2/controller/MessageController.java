@@ -61,6 +61,12 @@ public class MessageController {
 		return messageService.getUnreadRecMessagesPage(reciverId, pageable);
 	}
 
+	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT') or hasRole('PARENT')")
+	@GetMapping(value = "/count/recived/{reciverId}")
+	public Long getCountOfUnreadMessagesessagesPage(@PathVariable Long reciverId) {
+		return messageService.getCountOfUnreadMessages(reciverId);
+	}
+
 	@PreAuthorize("hasRole ('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')  or hasRole('PARENT')")
 	@GetMapping(value = "/sent/{senderId}")
 	public List<Message> getSendedMessages(@PathVariable Long senderId) {

@@ -29,4 +29,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
 	// lista svih neprocitanih poruka za primaoca sa paginacijom
 	Page<Message> findByReciverIdAndSeenFalseOrderByDateDesc(Long reciverId, Pageable pageable);
+
+	// broj neprocitanih poruka za primaoca
+	Long countByReciverIdAndSeenFalse(Long reciverId);
 }
